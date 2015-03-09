@@ -86,8 +86,8 @@ namespace AgentZorge
             if (referenceName != null)
             {
                 ResolveResultWithInfo referenceNameResolveResult = referenceName.Reference.Resolve();
-                var resolveResultWithInfo = referenceNameResolveResult.DeclaredElement as IClass;
-                if (resolveResultWithInfo != null && resolveResultWithInfo.GetClrName().FullName == "Moq.Mock`1")
+                var resolvedVarClass = referenceNameResolveResult.DeclaredElement as IClass;
+                if (resolvedVarClass != null && resolvedVarClass.GetClrName().FullName == "Moq.Mock`1")
                 {
                     string nameIdentifier = referenceName.ShortName;
                     ITypeArgumentList typeArgumentList = referenceName.TypeArgumentList;

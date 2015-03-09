@@ -1,0 +1,14 @@
+﻿GetHashCode
+Int32.MaxValue
+Int32.MinValue
+Int32.Parse
++ It.IsAny<int>()
++ It.IsAny<string>()
+String.Concat
+String.Copy
+String.Empty
+String.Format
+String.Intern
+String.IsInterned
+String.Join
+ToString
