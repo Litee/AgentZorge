@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AgentZorge</id>
+    <version>$version$</version>
+    <releaseNotes>
+0.0.1-beta1 - First release. Variable name auto-complete for Moq.
+    </releaseNotes>
+    <title>AgentZorge</title>
+    <authors>Andrey Lipatkin</authors>
+    <owners>litee</owners>
+    <copyright>2015 Andrey Lipatkin</copyright>
+    <licenseUrl>https://github.com/Litee/AgentZorge/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Litee/AgentZorge</projectUrl>
+    <!--<iconUrl></iconUrl>-->
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Simplifies work with mocking libraries (e.g. Moq).</description>
+    <language>en-US</language>
+    <tags>resharper unittests nunit msunit xunit moq</tags>
+    <dependencies>
+      <dependency id="ReSharper" version="[8.2, 8.3)" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\AgentZorge\Bin\Release\AgentZorge.dll" target="ReSharper\v8.2\plugins" />
+    <file src="..\src\AgentZorge\Bin\Release\AgentZorge.pdb" target="ReSharper\v8.2\plugins" />
+  </files>
+</package>
