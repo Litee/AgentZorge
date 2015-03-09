@@ -16,7 +16,7 @@ namespace AgentZorge.Tests
     {
         [Test]
         [TestNetFramework4]
-        [TestReferences("Moq.dll")]
+        [TestReferences("../Moq.dll")]
         [TestCase("TestLocalVar01.cs")]
         [TestCase("TestLocalVar02.cs")]
         [TestCase("TestLocalVar03.cs")]
@@ -25,6 +25,7 @@ namespace AgentZorge.Tests
         [TestCase("TestLocalVar06.cs")]
         [TestCase("TestLocalVar07.cs")]
         [TestCase("TestLocalVar08.cs")]
+
         [TestCase("TestPrivateInstanceField01.cs")]
         [TestCase("TestPrivateInstanceField02.cs")]
         [TestCase("TestPrivateInstanceField03.cs")]
@@ -36,6 +37,8 @@ namespace AgentZorge.Tests
         [TestCase("TestPublicInstanceField01.cs")]
         [TestCase("TestPublicStaticField01.cs")]
         [TestCase("TestPublicStaticReadonlyField01.cs")]
+
+        [TestCase("TestMethodParameter01.cs")]
 
         public void Test(string fileName)
         {
