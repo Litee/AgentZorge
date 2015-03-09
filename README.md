@@ -1,12 +1,11 @@
 # AgentZorge
 AgentZorge is a plugin for Resharper simplifying work with mocking libraries (e.g. Moq). To install use standard Resharper plugins management UI.
 
-# Supported features
+## Supported features
 
-*Moq:*
-* Suggest variable names based on mocked interface
+* Moq: Suggest variable names based on mocked interface
 
-# Compatibility
+## Compatibility
 
 * Only C# langauage is supported
-* Only Reshareper 8.2.x is supported (to be improved soon)
+* Only Reshareper 8.2.x is supported (more versions soon)
