@@ -4,7 +4,8 @@
     <id>AgentZorge</id>
     <version>$version$</version>
     <releaseNotes>
-0.0.1-beta1 - First release. Variable name auto-complete for Moq.
+0.1.0-beta2 - {Fix} Moq: Name auto-complete for Mock&lt;T&gt; fixed
+0.1.0-beta1 - {New} Moq: Variable name auto-complete for Mock&lt;T&gt;
     </releaseNotes>
     <title>AgentZorge</title>
     <authors>Andrey Lipatkin</authors>
@@ -16,7 +17,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Simplifies work with mocking libraries (e.g. Moq).</description>
     <language>en-US</language>
-    <tags>resharper unittests nunit msunit xunit moq</tags>
+    <tags>resharper r# nunit msunit xunit moq mock mocking testing tests</tags>
     <dependencies>
       <dependency id="ReSharper" version="[8.2, 8.3)" />
     </dependencies>
