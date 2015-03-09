@@ -1,0 +1,19 @@
+﻿using Moq;
+
+namespace TestNamespace
+{
+    public class MyTest
+    {
+        public void TestMethod(Mock<ITestService> testServiceMock)
+        {
+            testServiceMock.Setup(x => x.Call(It.IsAny<string>(), It.IsAny<int>())).Callback(|(string s, double d) => { }|(0));
+        }
+    }
+
+    public interface ITestService
+    {
+        void Call(string s, int i);
+    }
+}
+---------------------------------------------------------
+(0): ReSharper Underlined Error Highlighting: Invalid parameter types in Callback method
