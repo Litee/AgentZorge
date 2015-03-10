@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
@@ -24,7 +25,7 @@ namespace AgentZorge
             return true;
         }
 
-        private void AddLookupItemsNew(CSharpCodeCompletionContext context, GroupedItemsCollector collector)
+        private void AddLookupItemsNew([NotNull] CSharpCodeCompletionContext context, [NotNull] GroupedItemsCollector collector)
         {
             if (context.TerminatedContext == null)
                 return;
@@ -77,7 +78,7 @@ namespace AgentZorge
             var variableType = resolveResult.DeclaredElement as IClass;
             if (variableType == null)
                 return;
-            if (variableType == null || variableType.GetClrName().FullName != "Moq.Mock`1")
+            if (variableType.GetClrName().FullName != "Moq.Mock`1")
                 return;
             if (context.ExpectedTypesContext == null)
                 return;

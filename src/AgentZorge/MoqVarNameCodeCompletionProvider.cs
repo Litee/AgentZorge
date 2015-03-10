@@ -83,32 +83,34 @@ namespace AgentZorge
 
         private static void ProcessReferenceName(CSharpCodeCompletionContext context, GroupedItemsCollector collector, IReferenceName referenceName, NamedElementKinds elementKinds, ScopeKind localSelfScoped)
         {
-            if (referenceName != null)
+            if (referenceName == null)
+                return;
+            var referenceNameResolveResult = referenceName.Reference.Resolve();
+            var resolvedVarClass = referenceNameResolveResult.DeclaredElement as IClass;
+            if (resolvedVarClass != null && resolvedVarClass.GetClrName().FullName == "Moq.Mock`1")
             {
-                ResolveResultWithInfo referenceNameResolveResult = referenceName.Reference.Resolve();
-                var resolvedVarClass = referenceNameResolveResult.DeclaredElement as IClass;
-                if (resolvedVarClass != null && resolvedVarClass.GetClrName().FullName == "Moq.Mock`1")
+                var typeArgumentList = referenceName.TypeArgumentList;
+                var typeArguments = typeArgumentList.TypeArguments;
+                if (typeArguments.Count == 1)
                 {
-                    ITypeArgumentList typeArgumentList = referenceName.TypeArgumentList;
-                    IList<IType> typeArguments = typeArgumentList.TypeArguments;
-                    if (typeArguments.Count == 1)
+                    var typeArgument = typeArguments[0];
+                    var scalarType = typeArgument.GetScalarType();
+                    if (scalarType == null)
+                        return;
+                    var genericTypeResolveResult = scalarType.Resolve();
+                    var namingManager = typeArgument.GetPsiServices().Naming;
+                    var suggestionOptions = new SuggestionOptions();
+                    string proposedName;
+                    if (genericTypeResolveResult.IsEmpty)
                     {
-                        IType typeArgument = typeArguments[0];
-                        IResolveResult genericTypeResolveResult = typeArgument.GetScalarType().Resolve();
-                        NamingManager namingManager = typeArgument.GetPsiServices().Naming;
-                        var suggestionOptions = new SuggestionOptions();
-                        string proposedName;
-                        if (genericTypeResolveResult.IsEmpty)
-                        {
-                            proposedName = namingManager.Suggestion.GetDerivedName(typeArgument.GetPresentableName(CSharpLanguage.Instance), elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
-                        }
-                        else
-                        {
-                            proposedName = namingManager.Suggestion.GetDerivedName(genericTypeResolveResult.DeclaredElement, elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
-                        }
-                        collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName));
-                        collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName + "Mock"));
+                        proposedName = namingManager.Suggestion.GetDerivedName(typeArgument.GetPresentableName(CSharpLanguage.Instance), elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
                     }
+                    else
+                    {
+                        proposedName = namingManager.Suggestion.GetDerivedName(genericTypeResolveResult.DeclaredElement, elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
+                    }
+                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName));
+                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName + "Mock"));
                 }
             }
         }
