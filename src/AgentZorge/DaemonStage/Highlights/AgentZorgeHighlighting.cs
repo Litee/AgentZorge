@@ -5,7 +5,7 @@ namespace AgentZorge.DaemonStage.Highlights
     [StaticSeverityHighlighting(Severity.ERROR, "CSharpInfo")]
     public class AgentZorgeHighlighting : IHighlighting
     {
-        private string _tooltip;
+        private readonly string _tooltip;
 
         public AgentZorgeHighlighting(string tooltip)
         {

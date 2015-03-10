@@ -9,7 +9,7 @@ namespace AgentZorge.DaemonStage.Highlights
     public class MoqIncompatibleCallbackParametersAnalysis : IRecursiveElementProcessor
     {
         private readonly IDaemonProcess _daemonProcess;
-        private List<HighlightingInfo> _highlights = new List<HighlightingInfo>();
+        private readonly List<HighlightingInfo> _highlights = new List<HighlightingInfo>();
 
         public MoqIncompatibleCallbackParametersAnalysis(IDaemonProcess daemonProcess)
         {

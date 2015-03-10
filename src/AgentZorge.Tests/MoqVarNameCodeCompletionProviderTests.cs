@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using JetBrains.ReSharper.Feature.Services.CodeCompletion;
-using JetBrains.ReSharper.Feature.Services.Lookup;
-using JetBrains.ReSharper.Feature.Services.Tests.CSharp.FeatureServices.CodeCompletion;
+﻿using JetBrains.ReSharper.Feature.Services.Tests.CSharp.FeatureServices.CodeCompletion;
 using JetBrains.ReSharper.TestFramework;
-using JetBrains.TextControl;
 using NUnit.Framework;
 
 namespace AgentZorge.Tests
