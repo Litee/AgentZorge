@@ -17,7 +17,7 @@ namespace AgentZorge.Tests
         [TestCase("TestCallbackWithoutParameters.cs")]
         public void Test(string testFile)
         {
-            DoTestFiles(testFile);
+            DoTestSolution(testFile);
         }
     }
 }
