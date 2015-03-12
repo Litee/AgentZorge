@@ -4,7 +4,8 @@
     <id>AgentZorge</id>
     <version>$version$</version>
     <releaseNotes>
-0.1.0-beta2 - {Fix} Moq: Name auto-complete for Mock&lt;T&gt; fixed
+0.1.0 - Re-packaging as stable version
+0.1.0-beta2 - {Fix} Moq: Parameter name auto-complete for Mock&lt;T&gt; fixed
 0.1.0-beta1 - {New} Moq: Variable name auto-complete for Mock&lt;T&gt;
     </releaseNotes>
     <title>AgentZorge</title>
