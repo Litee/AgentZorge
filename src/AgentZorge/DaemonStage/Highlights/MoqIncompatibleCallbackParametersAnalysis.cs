@@ -41,26 +41,41 @@ namespace AgentZorge.DaemonStage.Highlights
             if (callbackMethodDeclaration == null || callbackMethodDeclaration.ShortName != "Callback")
                 return;
             var callbackMethodReturnType = callbackMethodDeclaration.ReturnType.GetScalarType();
-            if (callbackMethodReturnType == null)
-                return;
-            if (callbackMethodReturnType.GetClrName().FullName != "Moq.Language.Flow.ICallbackResult")
+            if (callbackMethodReturnType == null || callbackMethodReturnType.GetLongPresentableName(CSharpLanguage.Instance) != "Moq.Language.Flow.ICallbackResult")
                 return;
             var invokedExpression = callbackInvocationExpression.InvokedExpression as IReferenceExpression;
             if (invokedExpression == null)
                 return;
-            var setupInvocationExpression = invokedExpression.QualifierExpression as IInvocationExpression;
-            if (setupInvocationExpression == null)
+            var setupOrReturnInvocationExpression = invokedExpression.QualifierExpression as IInvocationExpression;
+            if (setupOrReturnInvocationExpression == null || setupOrReturnInvocationExpression.Reference == null)
                 return;
-            if (setupInvocationExpression.Reference == null)
+            var setupOrReturnResolveResult = setupOrReturnInvocationExpression.Reference.Resolve();
+            var setupOrReturnMethodDeclaration = setupOrReturnResolveResult.DeclaredElement as IMethod;
+            if (setupOrReturnMethodDeclaration == null)
                 return;
-            var setupResolveResult = setupInvocationExpression.Reference.Resolve();
-            var setupMethodDeclaration = setupResolveResult.DeclaredElement as IMethod;
+            IInvocationExpression setupInvocationExpression = null;
+            if (setupOrReturnMethodDeclaration.ShortName == "Returns")
+            {
+                var invokedExpression2 = setupOrReturnInvocationExpression.InvokedExpression as IReferenceExpression;
+                if (invokedExpression2 == null)
+                    return;
+                setupInvocationExpression = invokedExpression2.QualifierExpression as IInvocationExpression;
+            }
+            else
+            {
+                setupInvocationExpression = setupOrReturnInvocationExpression;
+            }
+            if (setupInvocationExpression == null || setupInvocationExpression.Reference == null)
+                return;
+            var setupMethodResolveResult = setupInvocationExpression.Reference.Resolve();
+            var setupMethodDeclaration = setupMethodResolveResult.DeclaredElement as IMethod;
             if (setupMethodDeclaration == null || setupMethodDeclaration.ShortName != "Setup")
                 return;
             var setupMethodReturnType = setupMethodDeclaration.ReturnType.GetScalarType();
             if (setupMethodReturnType == null)
                 return;
-            if (setupMethodReturnType.GetClrName().FullName != "Moq.Language.Flow.ISetup`1")
+            var setupMethodReturnTypeName = setupMethodReturnType.GetLongPresentableName(CSharpLanguage.Instance);
+            if (setupMethodReturnTypeName != "Moq.Language.Flow.ISetup<T>" && setupMethodReturnTypeName != "Moq.Language.Flow.ISetup<T,TResult>")
                 return;
             var setupArguments = setupInvocationExpression.ArgumentList.Arguments;
             if (setupArguments.Count != 1)
