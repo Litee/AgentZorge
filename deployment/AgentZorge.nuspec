@@ -6,6 +6,7 @@
     <releaseNotes>
 0.2.0-alpha1  - {New} Moq: Highlight Callback() declarations with invalid parameters
 	      - {New} Moq: It.IsAny() is added into auto-complete in Setup() method
+0.1.0         - Re-packaging 0.1.0-beta2 as stable version
 0.1.0-beta2   - {Fix} Moq: Name auto-complete for Mock&lt;T&gt; fixed
 0.1.0-beta1   - {New} Moq: Variable name auto-complete for Mock&lt;T&gt;
     </releaseNotes>
