@@ -73,7 +73,7 @@ namespace AgentZorge.DaemonStage.Highlights
             var mockMethodArguments = mockMethodInvocationExpression.ArgumentList.Arguments;
             if (mockMethodArguments.Count != callbackLambdaParameterDeclarations.Count)
             {
-                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting("Invalid number of parameters in Callback method")));
+                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}", mockMethodArguments.Count, callbackLambdaParameterDeclarations.Count))));
             }
             else
             {
@@ -83,7 +83,7 @@ namespace AgentZorge.DaemonStage.Highlights
                     var callbackLambdaParameterType = callbackLambdaParameterDeclarations[i].DeclaredElement.Type.GetLongPresentableName(CSharpLanguage.Instance);
                     if (mockMethodParameterType != callbackLambdaParameterType)
                     {
-                        _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting("Invalid parameter types in Callback method")));
+                        _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Incompatible parameter types in Callback method: Expected: {0}. Found: {1}", mockMethodParameterType, callbackLambdaParameterType))));
                     }
                 }
             }

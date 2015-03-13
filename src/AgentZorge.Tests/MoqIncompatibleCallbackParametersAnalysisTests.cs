@@ -11,10 +11,12 @@ namespace AgentZorge.Tests
         [TestNetFramework4]
         [TestReferences("../Moq.dll")]
         [TestReferences("System.Core.dll")]
-        [TestCase("TestCallbackWithLessParametersThanRequired.cs")]
         [TestCase("TestCallbackWithRightParameters.cs")]
+
+        [TestCase("TestCallbackWithLessParametersThanRequired.cs")]
         [TestCase("TestCallbackWithWrongParameterTypes.cs")]
         [TestCase("TestCallbackWithoutParameters.cs")]
+        [TestCase("TestCallbackWithRightParametersIncludingAction.cs")]
         public void Test(string testFile)
         {
             DoTestSolution(testFile);
