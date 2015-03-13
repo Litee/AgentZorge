@@ -1,3 +1,4 @@
+using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
@@ -6,6 +7,7 @@ using JetBrains.ReSharper.Feature.Services.Lookup;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 
 namespace AgentZorge
@@ -35,17 +37,17 @@ namespace AgentZorge
             var referenceExpression = identifier.Parent as IReferenceExpression;
             if (referenceExpression == null)
                 return;
-            var argument = referenceExpression.Parent as ICSharpArgument;
-            if (argument == null)
+            var mockedMethodArgument = referenceExpression.Parent as ICSharpArgument;
+            if (mockedMethodArgument == null)
                 return;
-            var argumentList = argument.Parent as IArgumentList;
-            if (argumentList == null)
+            var mockedMethodArgumentList = mockedMethodArgument.ContainingArgumentList;
+            if (mockedMethodArgumentList == null)
                 return;
-            int argumentIndex = argumentList.Arguments.IndexOf(argument);
-            var mockMethodInvocationExpression = argumentList.Parent as IInvocationExpression;
-            if (mockMethodInvocationExpression == null)
+            int argumentIndex = mockedMethodArgumentList.Arguments.IndexOf(mockedMethodArgument);
+            var mockedMethodInvocationExpression = mockedMethodArgumentList.Parent as IInvocationExpression;
+            if (mockedMethodInvocationExpression == null)
                 return;
-            var setupMethodLambdaExpression = mockMethodInvocationExpression.Parent as ILambdaExpression;
+            var setupMethodLambdaExpression = mockedMethodInvocationExpression.Parent as ILambdaExpression;
             if (setupMethodLambdaExpression == null)
                 return;
             var setupMethodArgument = setupMethodLambdaExpression.Parent as IArgument;
@@ -82,6 +84,22 @@ namespace AgentZorge
                 return;
             if (context.ExpectedTypesContext == null)
                 return;
+            if (argumentIndex == 0 && mockedMethodInvocationExpression.Reference != null)
+            {
+                var mockedMethodResolved = mockedMethodInvocationExpression.Reference.Resolve();
+                var declaredElements = Enumerable.Repeat(mockedMethodResolved.DeclaredElement, 1)
+                    .Concat(mockedMethodResolved.Result.Candidates)
+                    .Where(x => x != null);
+                var methods = declaredElements
+                    .OfType<IMethod>()
+                    .Where(x => x.Parameters.Count() > 1)
+                    .ToList();
+                methods.ForEach(method =>
+                    {
+                        var parameter = method.Parameters.Select(x => "It.IsAny<" + x.Type.GetPresentableName(CSharpLanguage.Instance) + ">()");
+                        collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(string.Join(", ", parameter)));
+                    });
+            }
             foreach (var expectedType in context.ExpectedTypesContext.ExpectedITypes)
             {
                 if (expectedType.Type == null)

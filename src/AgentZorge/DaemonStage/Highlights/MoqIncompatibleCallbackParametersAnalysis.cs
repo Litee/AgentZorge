@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
@@ -12,17 +12,17 @@ namespace AgentZorge.DaemonStage.Highlights
         private readonly IDaemonProcess _daemonProcess;
         private readonly List<HighlightingInfo> _highlights = new List<HighlightingInfo>();
 
-        public MoqIncompatibleCallbackParametersAnalysis(IDaemonProcess daemonProcess)
+        public MoqIncompatibleCallbackParametersAnalysis([NotNull] IDaemonProcess daemonProcess)
         {
             _daemonProcess = daemonProcess;
         }
 
-        public bool InteriorShouldBeProcessed(JetBrains.ReSharper.Psi.Tree.ITreeNode element)
+        public bool InteriorShouldBeProcessed([NotNull] JetBrains.ReSharper.Psi.Tree.ITreeNode element)
         {
             return true;
         }
 
-        public void ProcessAfterInterior(JetBrains.ReSharper.Psi.Tree.ITreeNode element)
+        public void ProcessAfterInterior([NotNull] JetBrains.ReSharper.Psi.Tree.ITreeNode element)
         {
             var callbackInvocationExpression = element as IInvocationExpression;
             if (callbackInvocationExpression == null)
@@ -65,25 +65,7 @@ namespace AgentZorge.DaemonStage.Highlights
             {
                 setupInvocationExpression = setupOrReturnInvocationExpression;
             }
-            if (setupInvocationExpression == null || setupInvocationExpression.Reference == null)
-                return;
-            var setupMethodResolveResult = setupInvocationExpression.Reference.Resolve();
-            var setupMethodDeclaration = setupMethodResolveResult.DeclaredElement as IMethod;
-            if (setupMethodDeclaration == null || setupMethodDeclaration.ShortName != "Setup")
-                return;
-            var setupMethodReturnType = setupMethodDeclaration.ReturnType.GetScalarType();
-            if (setupMethodReturnType == null)
-                return;
-            var setupMethodReturnTypeName = setupMethodReturnType.GetLongPresentableName(CSharpLanguage.Instance);
-            if (setupMethodReturnTypeName != "Moq.Language.Flow.ISetup<T>" && setupMethodReturnTypeName != "Moq.Language.Flow.ISetup<T,TResult>")
-                return;
-            var setupArguments = setupInvocationExpression.ArgumentList.Arguments;
-            if (setupArguments.Count != 1)
-                return;
-            var setupLambdaExpression = setupArguments[0].Value as ILambdaExpression;
-            if (setupLambdaExpression == null)
-                return;
-            var mockMethodInvocationExpression = setupLambdaExpression.BodyExpression as IInvocationExpression;
+            var mockMethodInvocationExpression = MoqHelper.GetMockedMethodExpressionFromSetupMethod(setupInvocationExpression);
             if (mockMethodInvocationExpression == null || mockMethodInvocationExpression.Reference == null)
                 return;
             var targetMethodResolveResult = mockMethodInvocationExpression.Reference.Resolve();
@@ -109,7 +91,7 @@ namespace AgentZorge.DaemonStage.Highlights
             }
         }
 
-        public void ProcessBeforeInterior(JetBrains.ReSharper.Psi.Tree.ITreeNode element)
+        public void ProcessBeforeInterior([NotNull] JetBrains.ReSharper.Psi.Tree.ITreeNode element)
         {
         }
 
@@ -118,6 +100,7 @@ namespace AgentZorge.DaemonStage.Highlights
             get { return _daemonProcess.InterruptFlag; }
         }
 
+        [NotNull]
         public List<HighlightingInfo> Highlights
         {
             get { return _highlights; }

@@ -14,6 +14,8 @@ namespace AgentZorge.Tests
         [TestCase("TestCallParameter02.cs")]
         [TestCase("TestCallParameter03.cs")]
         [TestCase("TestCallParameter04.cs")]
+        [TestCase("TestCallParameter05.cs")]
+        [TestCase("TestCallParameter06.cs")]
 
         public void Test(string fileName)
         {
