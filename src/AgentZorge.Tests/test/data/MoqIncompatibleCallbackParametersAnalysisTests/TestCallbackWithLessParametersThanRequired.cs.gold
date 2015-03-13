@@ -16,4 +16,4 @@ namespace TestNamespace
     }
 }
 ---------------------------------------------------------
-(0): ReSharper Underlined Error Highlighting: Invalid number of parameters in Callback method. Expected: 2. Found: 1
+(0): ReSharper Underlined Error Highlighting: Invalid number of parameters in Callback method. Expected: 2. Found: 1.

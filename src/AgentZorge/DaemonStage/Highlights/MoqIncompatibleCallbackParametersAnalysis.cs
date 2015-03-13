@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
@@ -68,22 +69,26 @@ namespace AgentZorge.DaemonStage.Highlights
             if (setupLambdaExpression == null)
                 return;
             var mockMethodInvocationExpression = setupLambdaExpression.BodyExpression as IInvocationExpression;
-            if (mockMethodInvocationExpression == null)
+            if (mockMethodInvocationExpression == null || mockMethodInvocationExpression.Reference == null)
                 return;
-            var mockMethodArguments = mockMethodInvocationExpression.ArgumentList.Arguments;
-            if (mockMethodArguments.Count != callbackLambdaParameterDeclarations.Count)
+            var targetMethodResolveResult = mockMethodInvocationExpression.Reference.Resolve();
+            var targetMethod = targetMethodResolveResult.DeclaredElement as IMethod;
+            if (targetMethod == null)
+                return;
+            if (targetMethod.Parameters.Count != callbackLambdaParameterDeclarations.Count)
             {
-                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}", mockMethodArguments.Count, callbackLambdaParameterDeclarations.Count))));
+                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}.", targetMethod.Parameters.Count, callbackLambdaParameterDeclarations.Count))));
             }
             else
             {
-                for (int i = 0; i < mockMethodArguments.Count; i++)
+                for (int i = 0; i < targetMethod.Parameters.Count; i++)
                 {
-                    var mockMethodParameterType = mockMethodArguments[i].GetExpressionType().GetLongPresentableName(CSharpLanguage.Instance);
-                    var callbackLambdaParameterType = callbackLambdaParameterDeclarations[i].DeclaredElement.Type.GetLongPresentableName(CSharpLanguage.Instance);
-                    if (mockMethodParameterType != callbackLambdaParameterType)
+                    var targetParameter = targetMethod.Parameters[i];
+                    var targetParameterTypeName = targetParameter.Type.GetLongPresentableName(CSharpLanguage.Instance);
+                    var callbackLambdaParameterTypeName = callbackLambdaParameterDeclarations[i].DeclaredElement.Type.GetLongPresentableName(CSharpLanguage.Instance);
+                    if (targetParameterTypeName != callbackLambdaParameterTypeName)
                     {
-                        _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Incompatible parameter types in Callback method: Expected: {0}. Found: {1}", mockMethodParameterType, callbackLambdaParameterType))));
+                        _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Incompatible parameter types in Callback method: Expected: {0}. Found: {1}.", targetParameterTypeName, callbackLambdaParameterTypeName))));
                     }
                 }
             }
