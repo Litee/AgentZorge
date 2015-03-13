@@ -10,13 +10,12 @@ namespace AgentZorge.Tests
         [Test]
         [TestNetFramework4]
         [TestReferences("../Moq.dll")]
-        [TestCase("TestCallParameter01.cs")]
-        [TestCase("TestCallParameter02.cs")]
-        [TestCase("TestCallParameter03.cs")]
-        [TestCase("TestCallParameter04.cs")]
-        [TestCase("TestCallParameter05.cs")]
-        [TestCase("TestCallParameter06.cs")]
-
+        [TestCase("TestParameterSuggestionForFieldMock.cs")]
+        [TestCase("TestParameterSuggestionForFieldMockSecondParameter.cs")]
+        [TestCase("TestParameterSuggestionForFieldMockWithMultipleMethodOverloads.cs")]
+        [TestCase("TestParameterSuggestionForFieldMockWithMultipleParameters.cs")]
+        [TestCase("TestParameterSuggestionForFieldMockWithMultipleParameters_2.cs")]
+        [TestCase("TestParameterSuggestionForLocalMock.cs")]
         public void Test(string fileName)
         {
             DoTestFiles(fileName);

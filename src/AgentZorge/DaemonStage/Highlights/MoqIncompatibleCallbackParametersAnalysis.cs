@@ -25,36 +25,18 @@ namespace AgentZorge.DaemonStage.Highlights
         public void ProcessAfterInterior([NotNull] JetBrains.ReSharper.Psi.Tree.ITreeNode element)
         {
             var callbackInvocationExpression = element as IInvocationExpression;
-            if (callbackInvocationExpression == null)
-                return;
-            var callbackArguments = callbackInvocationExpression.ArgumentList.Arguments;
-            if (callbackArguments.Count != 1)
-                return;
-            var callbackLambdaExpression = callbackArguments[0].Value as ILambdaExpression;
-            if (callbackLambdaExpression == null)
-                return;
-            var callbackLambdaParameterDeclarations = callbackLambdaExpression.ParameterDeclarations;
-            if (callbackInvocationExpression.Reference == null)
-                return;
-            var callbackResolveResult = callbackInvocationExpression.Reference.Resolve();
-            var callbackMethodDeclaration = callbackResolveResult.DeclaredElement as IMethod;
-            if (callbackMethodDeclaration == null || callbackMethodDeclaration.ShortName != "Callback")
-                return;
-            var callbackMethodReturnType = callbackMethodDeclaration.ReturnType.GetScalarType();
-            if (callbackMethodReturnType == null || callbackMethodReturnType.GetLongPresentableName(CSharpLanguage.Instance) != "Moq.Language.Flow.ICallbackResult")
+            if (callbackInvocationExpression == null || !callbackInvocationExpression.IsMoqCallbackMethod())
                 return;
             var invokedExpression = callbackInvocationExpression.InvokedExpression as IReferenceExpression;
             if (invokedExpression == null)
                 return;
             var setupOrReturnInvocationExpression = invokedExpression.QualifierExpression as IInvocationExpression;
-            if (setupOrReturnInvocationExpression == null || setupOrReturnInvocationExpression.Reference == null)
-                return;
-            var setupOrReturnResolveResult = setupOrReturnInvocationExpression.Reference.Resolve();
-            var setupOrReturnMethodDeclaration = setupOrReturnResolveResult.DeclaredElement as IMethod;
-            if (setupOrReturnMethodDeclaration == null)
-                return;
-            IInvocationExpression setupInvocationExpression = null;
-            if (setupOrReturnMethodDeclaration.ShortName == "Returns")
+            IInvocationExpression setupInvocationExpression;
+            if (setupOrReturnInvocationExpression.IsMoqSetupMethod())
+            {
+                setupInvocationExpression = setupOrReturnInvocationExpression;
+            }
+            else if (setupOrReturnInvocationExpression.IsMoqReturnsMethod())
             {
                 var invokedExpression2 = setupOrReturnInvocationExpression.InvokedExpression as IReferenceExpression;
                 if (invokedExpression2 == null)
@@ -63,15 +45,18 @@ namespace AgentZorge.DaemonStage.Highlights
             }
             else
             {
-                setupInvocationExpression = setupOrReturnInvocationExpression;
-            }
-            var mockMethodInvocationExpression = MoqHelper.GetMockedMethodExpressionFromSetupMethod(setupInvocationExpression);
-            if (mockMethodInvocationExpression == null || mockMethodInvocationExpression.Reference == null)
                 return;
-            var targetMethodResolveResult = mockMethodInvocationExpression.Reference.Resolve();
-            var targetMethod = targetMethodResolveResult.DeclaredElement as IMethod;
+            }
+            var targetMethod = setupInvocationExpression.GetMockedMethodFromSetupMethod();
             if (targetMethod == null)
                 return;
+            var callbackArguments = callbackInvocationExpression.ArgumentList.Arguments;
+            if (callbackArguments.Count != 1)
+                return;
+            var callbackLambdaExpression = callbackArguments[0].Value as ILambdaExpression;
+            if (callbackLambdaExpression == null)
+                return;
+            var callbackLambdaParameterDeclarations = callbackLambdaExpression.ParameterDeclarations;
             if (targetMethod.Parameters.Count != callbackLambdaParameterDeclarations.Count)
             {
                 _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}.", targetMethod.Parameters.Count, callbackLambdaParameterDeclarations.Count))));

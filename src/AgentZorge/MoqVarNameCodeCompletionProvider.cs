@@ -8,6 +8,7 @@ using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Naming.Extentions;
 using JetBrains.ReSharper.Psi.Naming.Impl;
 using JetBrains.ReSharper.Psi.Naming.Settings;
+using JetBrains.ReSharper.Psi.Resx.Utils;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
 
@@ -82,8 +83,8 @@ namespace AgentZorge
             if (referenceName == null)
                 return;
             var referenceNameResolveResult = referenceName.Reference.Resolve();
-            var resolvedVarClass = referenceNameResolveResult.DeclaredElement as IClass;
-            if (resolvedVarClass != null && resolvedVarClass.GetClrName().FullName == "Moq.Mock`1")
+            var referencedElementAsString = referenceNameResolveResult.DeclaredElement.ConvertToString();
+            if (referencedElementAsString == "Class:Moq.Mock`1")
             {
                 var typeArgumentList = referenceName.TypeArgumentList;
                 var typeArguments = typeArgumentList.TypeArguments;

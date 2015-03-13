@@ -56,10 +56,11 @@
     <Compile Include="DaemonStage\MoqDaemonStageProcess.cs" />
     <Compile Include="DaemonStage\Highlights\MoqIncompatibleCallbackParametersAnalysis.cs" />
     <Compile Include="DaemonStage\Highlights\AgentZorgeHighlighting.cs" />
-    <Compile Include="MoqHelper.cs" />
+    <Compile Include="MoqExtensions.cs" />
     <Compile Include="MoqSetupMethodParameterCodeCompletionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MoqVarNameCodeCompletionProvider.cs" />
+    <Compile Include="ResharperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

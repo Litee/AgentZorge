@@ -15,6 +15,7 @@ namespace AgentZorge.Tests
         [TestCase("TestCallbackWithLessParametersThanRequiredAfterReturns.cs")]
         [TestCase("TestCallbackWithRightParameters.cs")]
         [TestCase("TestCallbackWithRightParametersAfterReturns.cs")]
+        [TestCase("TestCallbackWithRightParametersAfterReturns_2.cs")]
 
         [TestCase("TestCallbackWithLessParametersThanRequired.cs")]
         [TestCase("TestCallbackWithWrongParameterTypes.cs")]

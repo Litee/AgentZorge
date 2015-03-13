@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
@@ -7,7 +8,6 @@ using JetBrains.ReSharper.Feature.Services.Lookup;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
-using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 
 namespace AgentZorge
@@ -32,58 +32,24 @@ namespace AgentZorge
             if (context.TerminatedContext == null)
                 return;
             var identifier = context.TerminatedContext.TreeNode as IIdentifier;
-            if (identifier == null)
-                return;
-            var referenceExpression = identifier.Parent as IReferenceExpression;
-            if (referenceExpression == null)
-                return;
-            var mockedMethodArgument = referenceExpression.Parent as ICSharpArgument;
+            var mockedMethodArgument = identifier
+                .GetParentSafe<IReferenceExpression>()
+                .GetParentSafe<ICSharpArgument>();
             if (mockedMethodArgument == null)
                 return;
-            var mockedMethodArgumentList = mockedMethodArgument.ContainingArgumentList;
-            if (mockedMethodArgumentList == null)
-                return;
-            int argumentIndex = mockedMethodArgumentList.Arguments.IndexOf(mockedMethodArgument);
-            var mockedMethodInvocationExpression = mockedMethodArgumentList.Parent as IInvocationExpression;
+            var mockedMethodInvocationExpression = mockedMethodArgument
+                .GetParentSafe<IArgumentList>()
+                .GetParentSafe<IInvocationExpression>();
             if (mockedMethodInvocationExpression == null)
                 return;
-            var setupMethodLambdaExpression = mockedMethodInvocationExpression.Parent as ILambdaExpression;
-            if (setupMethodLambdaExpression == null)
+            var setupMethodInvocationExpression = mockedMethodInvocationExpression
+                .GetParentSafe<ILambdaExpression>()
+                .GetParentSafe<IArgument>()
+                .GetParentSafe<IArgumentList>()
+                .GetParentSafe<IInvocationExpression>();
+            if (setupMethodInvocationExpression == null || !setupMethodInvocationExpression.IsMoqSetupMethod())
                 return;
-            var setupMethodArgument = setupMethodLambdaExpression.Parent as IArgument;
-            if (setupMethodArgument == null)
-                return;
-            var setupMethodArgumentList = setupMethodArgument.Parent as IArgumentList;
-            if (setupMethodArgumentList == null)
-                return;
-            var setupMethodInvocationExpression = setupMethodArgumentList.Parent as IInvocationExpression;
-            if (setupMethodInvocationExpression == null)
-                return;
-            if (setupMethodInvocationExpression.Reference == null)
-                return;
-            var invokedExpression = setupMethodInvocationExpression.InvokedExpression as IReferenceExpression;
-            if (invokedExpression == null)
-                return;
-            if (invokedExpression.NameIdentifier.Name != "Setup")
-                return;
-            var qualifierExpression = invokedExpression.QualifierExpression as IReferenceExpression;
-            if (qualifierExpression == null)
-                return;
-            var qualifierExpressionResolveResult = qualifierExpression.Reference.Resolve();
-            var field = qualifierExpressionResolveResult.DeclaredElement as ITypeOwner;
-            if (field == null)
-                return;
-            var declaredType = field.Type as IDeclaredType;
-            if (declaredType == null)
-                return;
-            var resolveResult = declaredType.Resolve();
-            var variableType = resolveResult.DeclaredElement as IClass;
-            if (variableType == null)
-                return;
-            if (variableType.GetClrName().FullName != "Moq.Mock`1")
-                return;
-            if (context.ExpectedTypesContext == null)
-                return;
+            int argumentIndex = mockedMethodArgument.IndexOf();
             if (argumentIndex == 0 && mockedMethodInvocationExpression.Reference != null)
             {
                 var mockedMethodResolved = mockedMethodInvocationExpression.Reference.Resolve();
