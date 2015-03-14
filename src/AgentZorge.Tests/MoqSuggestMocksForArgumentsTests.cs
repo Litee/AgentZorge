@@ -5,12 +5,16 @@ using NUnit.Framework;
 namespace AgentZorge.Tests
 {
     [TestFixture]
-    public class MoqSuggestMocksForParametersTests : CodeCompletionTestBase
+    public class MoqSuggestMocksForArgumentsTests : CodeCompletionTestBase
     {
         [Test]
         [TestNetFramework4]
         [TestReferences("../Moq.dll")]
-        [TestCase("SuggestLocalMockForParameter.cs")]
+        [TestCase("SuggestLocalMockForArgument.cs")]
+        [TestCase("SuggestFieldMockForArgument.cs")]
+        [TestCase("SuggestParamMockForArgument.cs")]
+        [TestCase("SuggestLocalMockForSecondArgument.cs")]
+        [TestCase("SuggestLocalMockForArgumentTwoCandidates.cs")]
 
         public void RunAll_MoqSuggestMocksForParametersTests(string fileName)
         {

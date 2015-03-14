@@ -21,7 +21,7 @@ namespace AgentZorge.Tests
         [TestCase("TestCallbackWithWrongParameterTypes.cs")]
         [TestCase("TestCallbackWithoutParameters.cs")]
         [TestCase("TestCallbackWithRightParametersIncludingParams.cs")]
-        public void Test(string testFile)
+        public void RunAll_MoqIncompatibleCallbackParametersAnalysisTests(string testFile)
         {
             DoTestSolution(testFile);
         }

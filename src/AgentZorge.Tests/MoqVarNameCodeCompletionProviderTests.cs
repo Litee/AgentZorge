@@ -33,7 +33,7 @@ namespace AgentZorge.Tests
 
         [TestCase("TestMethodParameter01.cs")]
 
-        public void Test(string fileName)
+        public void RunAll_MoqVarNameCodeCompletionProviderTests(string fileName)
         {
             DoTestFiles(fileName);
         }

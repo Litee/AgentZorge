@@ -17,8 +17,8 @@ namespace MoqExperiments
         [Test]
         public void Test()
         {
-	     Mock<ITestService> _testServiceMock;
-	     new TestClass({caret}
+	     Mock<ITestService> testServiceMock;
+	     new TestClass("", {caret}
         }
     }
 
@@ -31,7 +31,7 @@ namespace MoqExperiments
     {
         private ITestService _testService;
 
-        public TestClass(ITestService testService)
+        public TestClass(string s, ITestService testService)
         {
             _testService = testService;
         }

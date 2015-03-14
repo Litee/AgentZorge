@@ -59,7 +59,7 @@
     <Compile Include="MoqExtensions.cs" />
     <Compile Include="MoqGenerateCallbackProvider.cs" />
     <Compile Include="MoqSetupMethodParameterCodeCompletionProvider.cs" />
-    <Compile Include="MoqSuggestMocksForParameters.cs" />
+    <Compile Include="MoqSuggestMocksForArguments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MoqVarNameCodeCompletionProvider.cs" />
     <Compile Include="ResharperExtensions.cs" />

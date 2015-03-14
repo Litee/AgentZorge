@@ -16,7 +16,7 @@ namespace AgentZorge.Tests
         [TestCase("TestParameterSuggestionForFieldMockWithMultipleParameters.cs")]
         [TestCase("TestParameterSuggestionForFieldMockWithMultipleParameters_2.cs")]
         [TestCase("TestParameterSuggestionForLocalMock.cs")]
-        public void Test(string fileName)
+        public void RunAll_MoqSetupMethodParameterCodeCompletionProviderTests(string fileName)
         {
             DoTestFiles(fileName);
         }
