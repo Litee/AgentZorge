@@ -14,4 +14,14 @@ Was | Now
 ----|-----
 ![](https://github.com/Litee/AgentZorge/blob/master/media/variable-name-suggestion-was.png) | ![](https://github.com/Litee/AgentZorge/blob/master/media/variable-name-suggestion-now.png)
 
-* Moq: Highlight incompatibility between Setup and Callback parameters. Example: myMock.Setup(x => x.MyCall("")).Callback((int i) => {...})
+### Suggest It.IsAny<T> when setting up mock
+
+Was | Now
+----|-----
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-mocked-method-parameters-was.png) | ![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-mocked-method-parameters-now.png)
+
+### Generate callbacks
+
+### Highlight callbacks with invalid number of arguments or incompatible argument types
+
+### Suggest declared mocks when they are applicable
