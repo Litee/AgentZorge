@@ -4,6 +4,8 @@
     <id>AgentZorge</id>
     <version>$version$</version>
     <releaseNotes>
+0.2.0:
+ - Re-packaging 0.2.0-beta4 as stable version
 0.2.0-beta4:
  - {Fix} Moq: Callback errors highlighting works if there is a Returns call between Setup and Callback
 0.2.0-beta3:
