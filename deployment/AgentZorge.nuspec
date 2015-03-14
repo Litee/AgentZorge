@@ -4,6 +4,10 @@
     <id>AgentZorge</id>
     <version>$version$</version>
     <releaseNotes>
+0.3.0-beta1:
+ - {New} Moq: Now it is possible to provide all It.IsAny&lt;T&gt; for the method in one click
+ - {New} Moq: Now it is possible to generate callback with all parameters
+ - {New} Moq: myMock.Object are added to suggestion lists
 0.2.0:
  - Re-packaging 0.2.0-beta4 as stable version
 0.2.0-beta4:
