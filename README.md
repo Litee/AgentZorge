@@ -10,21 +10,15 @@ AgentZorge is a plugin for Resharper simplifying work with mocking libraries (e.
 
 ### Moq: Suggest variable names based on mocked interface
 
-Was | Now
-----|-----
-![](https://github.com/Litee/AgentZorge/blob/master/media/variable-name-suggestion-was.png) | ![](https://github.com/Litee/AgentZorge/blob/master/media/variable-name-suggestion-now.png)
+![](https://github.com/Litee/AgentZorge/blob/master/media/variable-name-suggestion.png)
 
 ### Moq: Suggest It.IsAny() when setting up mock
 
-Was | Now
-----|-----
-![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-mocked-method-parameters-was.png) | ![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-mocked-method-parameters-now.png)
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-mocked-method-parameters.png)
 
 ### Moq: Generate callbacks
 
-Was | Now
-----|-----
-![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-callback-argument-was.png) | ![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-callback-argument-now.png)
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-callback-argument.png)
 
 ### Moq: Suggest declared mocks when they are applicable
 
