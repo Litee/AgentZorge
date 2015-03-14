@@ -1,0 +1,47 @@
+﻿+ () => {}
++ delegate () {}
++ Create method Action()
++ new Action()
++ (string s, int i) => {}
+Castle
+DefaultValue
+Equals
+GetHashCode
+GetType
+IHideObjectMembers
+IMock<>
+IMocked
+IMocked<>
+ITestService
+It
+Match
+Match<>
+MatcherAttribute
+MemberwiseClone
+Microsoft
+Mock
+Mock<>
+MockBehavior
+MockException
+MockExtensions
+MockFactory
+MockLegacyExtensions
+MockRepository
+MockSequence
+MockSequenceHelper
+Mocks
+Moq
+MyTest
+ObsoleteMockExtensions
+Range
+ReferenceEquals
+ReturnsExtensions
+SequenceExtensions
+System
+TestMethod
+TestNamespace
+Times
+ToString
+action:
+global
+testServiceMock

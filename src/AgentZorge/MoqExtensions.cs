@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Resx.Utils;
 
 namespace AgentZorge
@@ -22,8 +23,11 @@ namespace AgentZorge
             if (mockMethodInvocationExpression == null || mockMethodInvocationExpression.Reference == null)
                 return null;
             var targetMethodResolveResult = mockMethodInvocationExpression.Reference.Resolve();
-            return targetMethodResolveResult.DeclaredElement as IMethod;
-
+            if (targetMethodResolveResult.ResolveErrorType == ResolveErrorType.OK)
+            {
+                return targetMethodResolveResult.DeclaredElement as IMethod;
+            }
+            return null;
         }
 
         public static bool IsMoqSetupMethod([CanBeNull] IDeclaredElement declaredElement)

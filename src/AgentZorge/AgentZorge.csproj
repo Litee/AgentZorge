@@ -57,6 +57,7 @@
     <Compile Include="DaemonStage\Highlights\MoqIncompatibleCallbackParametersAnalysis.cs" />
     <Compile Include="DaemonStage\Highlights\AgentZorgeHighlighting.cs" />
     <Compile Include="MoqExtensions.cs" />
+    <Compile Include="MoqGenerateCallbackProvider.cs" />
     <Compile Include="MoqSetupMethodParameterCodeCompletionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MoqVarNameCodeCompletionProvider.cs" />

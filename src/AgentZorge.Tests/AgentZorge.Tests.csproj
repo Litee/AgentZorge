@@ -66,6 +66,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MoqGenerateCallbackProviderTests.cs" />
     <Compile Include="MoqIncompatibleCallbackParametersAnalysisTests.cs" />
     <Compile Include="MoqSetupMethodParameterCodeCompletionProviderTests.cs" />
     <Compile Include="MoqVarNameCodeCompletionProviderTests.cs" />
