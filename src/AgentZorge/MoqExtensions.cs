@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Resx.Utils;
 
 namespace AgentZorge
@@ -22,8 +23,11 @@ namespace AgentZorge
             if (mockMethodInvocationExpression == null || mockMethodInvocationExpression.Reference == null)
                 return null;
             var targetMethodResolveResult = mockMethodInvocationExpression.Reference.Resolve();
-            return targetMethodResolveResult.DeclaredElement as IMethod;
-
+            if (targetMethodResolveResult.ResolveErrorType == ResolveErrorType.OK)
+            {
+                return targetMethodResolveResult.DeclaredElement as IMethod;
+            }
+            return null;
         }
 
         public static bool IsMoqSetupMethod([CanBeNull] IDeclaredElement declaredElement)
@@ -58,18 +62,25 @@ namespace AgentZorge
             if (invocationExpression == null || invocationExpression.Reference == null)
                 return false;
             var resolveResult = invocationExpression.Reference.Resolve();
-            var declaredElementAsString = resolveResult.DeclaredElement.ConvertToString();
-            // Callback method has many overloads, so checking by prefix
-            return declaredElementAsString != null && declaredElementAsString.StartsWith("Method:Moq.Language.ICallback.Callback(System.Action");
+            var method = resolveResult.DeclaredElement as IMethod;
+            if (method == null || method.ShortName != "Callback")
+                return false;
+            var containingType = method.GetContainingType();
+            var containingClassAsString = containingType.ConvertToString();
+            return containingClassAsString == "Interface:Moq.Language.ICallback" || containingClassAsString == "Interface:Moq.Language.ICallback`2";
         }
+
         public static bool IsMoqReturnsMethod([CanBeNull] this IInvocationExpression invocationExpression)
         {
             if (invocationExpression == null || invocationExpression.Reference == null)
                 return false;
             var resolveResult = invocationExpression.Reference.Resolve();
-            var declaredElementAsString = resolveResult.DeclaredElement.ConvertToString();
-            // Returns method has many overloads, so checking by prefix
-            return declaredElementAsString != null && declaredElementAsString.StartsWith("Method:Moq.Language.IReturns`2.Returns(");
+            var method = resolveResult.DeclaredElement as IMethod;
+            if (method == null || method.ShortName != "Returns")
+                return false;
+            var containingType = method.GetContainingType();
+            var containingClassAsString = containingType.ConvertToString();
+            return containingClassAsString == "Interface:Moq.Language.IReturns`2";
         }
     }
 }
