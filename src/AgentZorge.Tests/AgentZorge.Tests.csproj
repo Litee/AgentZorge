@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="MoqGenerateCallbackProviderTests.cs" />
     <Compile Include="MoqIncompatibleCallbackParametersAnalysisTests.cs" />
-    <Compile Include="MoqSetupMethodParameterCodeCompletionProviderTests.cs" />
+    <Compile Include="MoqGenerateItIsAnyProviderTests.cs" />
     <Compile Include="MoqSuggestMocksForArgumentsTests.cs" />
     <Compile Include="MoqVarNameCodeCompletionProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

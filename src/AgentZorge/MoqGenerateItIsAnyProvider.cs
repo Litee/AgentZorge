@@ -12,7 +12,7 @@ using JetBrains.ReSharper.Psi.Tree;
 namespace AgentZorge
 {
     [Language(typeof (CSharpLanguage))]
-    public class MoqSetupMethodParameterCodeCompletionProvider : ItemsProviderOfSpecificContext<CSharpCodeCompletionContext>
+    public class MoqGenerateItIsAnyProvider : ItemsProviderOfSpecificContext<CSharpCodeCompletionContext>
     {
         protected override bool IsAvailable(CSharpCodeCompletionContext context)
         {

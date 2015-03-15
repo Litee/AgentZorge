@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace AgentZorge.Tests
 {
     [TestFixture]
-    public class MoqSetupMethodParameterCodeCompletionProviderTests : CodeCompletionTestBase
+    public class MoqGenerateItIsAnyProviderTests : CodeCompletionTestBase
     {
         [Test]
         [TestNetFramework4]
