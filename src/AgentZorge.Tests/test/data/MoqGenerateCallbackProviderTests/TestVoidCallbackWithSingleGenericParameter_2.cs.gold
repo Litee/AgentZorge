@@ -1,0 +1,60 @@
+﻿+ () => {}
++ delegate () {}
++ Create method Action()
++ new Action()
++ (IEnumerable<string> e, int i) => {}
+Castle
+Comparer<>
+DefaultValue
+Dictionary<>
+EqualityComparer<>
+Equals
+GetHashCode
+GetType
+ICollection<>
+IComparer<>
+IDictionary<>
+IEnumerable<>
+IEnumerator<>
+IEqualityComparer<>
+IHideObjectMembers
+IList<>
+IMock<>
+IMocked
+IMocked<>
+ITestService
+It
+KeyNotFoundException
+KeyValuePair<>
+List<>
+Match
+Match<>
+MatcherAttribute
+MemberwiseClone
+Microsoft
+Mock
+Mock<>
+MockBehavior
+MockException
+MockExtensions
+MockFactory
+MockLegacyExtensions
+MockRepository
+MockSequence
+MockSequenceHelper
+Mocks
+Moq
+MyTest
+ObsoleteMockExtensions
+Range
+ReferenceEquals
+ReturnsExtensions
+SequenceExtensions
+System
+TestMethod
+TestNamespace
+Times
+ToString
+action:
+global
+testServiceMock

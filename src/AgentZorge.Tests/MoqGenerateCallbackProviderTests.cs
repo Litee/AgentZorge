@@ -16,6 +16,8 @@ namespace AgentZorge.Tests
         [TestCase("TestVoidCallbackWithMultipleParametersAndMultipleChoices.cs")]
         [TestCase("TestVoidCallbackWithMultipleParametersAndMultipleChoices_2.cs")]
         [TestCase("TestVoidCallbackWithSingleParameterNonVoid.cs")]
+        [TestCase("TestVoidCallbackWithSingleGenericParameter.cs")]
+        [TestCase("TestVoidCallbackWithSingleGenericParameter_2.cs")]
         public void RunAll_MoqGenerateCallbackProviderTests(string fileName)
         {
             DoTestFiles(fileName);

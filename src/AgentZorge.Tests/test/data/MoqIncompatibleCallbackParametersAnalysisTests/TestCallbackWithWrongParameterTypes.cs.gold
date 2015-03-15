@@ -16,4 +16,4 @@ namespace TestNamespace
     }
 }
 ---------------------------------------------------------
-(0): ReSharper Underlined Error Highlighting: Incompatible parameter types in Callback method: Expected: int. Found: double.
+(0): ReSharper Underlined Error Highlighting: Incompatible parameter types in Callback method: Expected: (string, int). Found: (string, double).

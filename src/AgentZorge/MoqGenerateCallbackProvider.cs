@@ -66,8 +66,13 @@ namespace AgentZorge
             var targetMethod = setupInvocationExpression.GetMockedMethodFromSetupMethod();
             if (targetMethod == null)
                 return;
-            string argsString = string.Join(", ", targetMethod.Parameters.Select(x => x.Type.GetPresentableName(CSharpLanguage.Instance) + " " + x.ShortName));
-            var textualLookupItem = context.LookupItemsFactory.CreateTextLookupItem("(" + argsString + ") => {}");
+            if (targetMethod.Item1.Parameters.Any(x => x.Type == null))
+                return;
+            var argsString = targetMethod.Item1.Parameters.Select(x =>
+            {
+                return (targetMethod.Item2 == null ? x.Type.GetPresentableName(CSharpLanguage.Instance) : targetMethod.Item2.Apply(x.Type).GetPresentableName(CSharpLanguage.Instance)) + " " + x.ShortName;
+            });
+            var textualLookupItem = context.LookupItemsFactory.CreateTextLookupItem("(" + string.Join(", ", argsString) + ") => {}");
             collector.AddToTop(textualLookupItem);
         }
     }

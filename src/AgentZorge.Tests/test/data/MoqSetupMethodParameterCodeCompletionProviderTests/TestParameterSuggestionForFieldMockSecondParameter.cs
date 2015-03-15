@@ -24,7 +24,7 @@ namespace MoqExperiments
 
     public interface ITestService
     {
-        void Call(string s, ITestService d);
+        void Call(string s, double d);
 
         void Call(int i);
     }

@@ -57,21 +57,31 @@ namespace AgentZorge.DaemonStage.Highlights
             if (callbackLambdaExpression == null)
                 return;
             var callbackLambdaParameterDeclarations = callbackLambdaExpression.ParameterDeclarations;
-            if (targetMethod.Parameters.Count != callbackLambdaParameterDeclarations.Count)
+            if (targetMethod.Item1.Parameters.Count != callbackLambdaParameterDeclarations.Count)
             {
-                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}.", targetMethod.Parameters.Count, callbackLambdaParameterDeclarations.Count))));
+                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}.", targetMethod.Item1.Parameters.Count, callbackLambdaParameterDeclarations.Count))));
             }
             else
             {
-                for (int i = 0; i < targetMethod.Parameters.Count; i++)
+                var targetTypeNames = new List<string>();
+                var usedTypeNames = new List<string>();
+                var typesAreCompatible = true;
+                for (int i = 0; i < targetMethod.Item1.Parameters.Count; i++)
                 {
-                    var targetParameter = targetMethod.Parameters[i];
-                    var targetParameterTypeName = targetParameter.Type.GetLongPresentableName(CSharpLanguage.Instance);
+                    var targetParameter = targetMethod.Item1.Parameters[i];
+                    var targetParameterTypeName = targetMethod.Item2 == null ? targetParameter.Type.GetLongPresentableName(CSharpLanguage.Instance) : targetMethod.Item2.Apply(targetParameter.Type).GetLongPresentableName(CSharpLanguage.Instance);
                     var callbackLambdaParameterTypeName = callbackLambdaParameterDeclarations[i].DeclaredElement.Type.GetLongPresentableName(CSharpLanguage.Instance);
+                    targetTypeNames.Add(targetParameterTypeName);
+                    usedTypeNames.Add(callbackLambdaParameterTypeName);
                     if (targetParameterTypeName != callbackLambdaParameterTypeName)
                     {
-                        _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Incompatible parameter types in Callback method: Expected: {0}. Found: {1}.", targetParameterTypeName, callbackLambdaParameterTypeName))));
+                        typesAreCompatible = false;
                     }
+                }
+                if (!typesAreCompatible)
+                {
+                    var tooltip = string.Format("Incompatible parameter types in Callback method: Expected: ({0}). Found: ({1}).", string.Join(", ", targetTypeNames), string.Join(", ", usedTypeNames));
+                    _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(tooltip)));
                 }
             }
         }

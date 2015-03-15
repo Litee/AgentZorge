@@ -4,6 +4,8 @@
     <id>AgentZorge</id>
     <version>$version$</version>
     <releaseNotes>
+0.3.0-beta2:
+ - {Fix} Moq: Several fixes for better support of parameterized types
 0.3.0-beta1:
  - {New} Moq: Now it is possible to provide all It.IsAny&lt;T&gt; for the method in one click
  - {New} Moq: Now it is possible to generate callback with all parameters

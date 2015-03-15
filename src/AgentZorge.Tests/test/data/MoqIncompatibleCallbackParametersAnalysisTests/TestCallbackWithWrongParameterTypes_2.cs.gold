@@ -1,0 +1,20 @@
+﻿using Moq;
+using System.Collections.Generic;
+
+namespace TestNamespace
+{
+    public class MyTest
+    {
+        public void TestMethod(Mock<ITestService> testServiceMock)
+        {
+            testServiceMock.Setup(x => x.Call(It.IsAny<IEnumerable<string>>(), It.IsAny<int>())).Callback(|(string s, double d) => { }|(0));
+        }
+    }
+
+    public interface ITestService
+    {
+        void Call<T>(IEnumerable<T> e, int i);
+    }
+}
+---------------------------------------------------------
+(0): ReSharper Underlined Error Highlighting: Incompatible parameter types in Callback method: Expected: (System.Collections.Generic.IEnumerable<string>, int). Found: (string, double).

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Resolve;
@@ -9,7 +10,7 @@ namespace AgentZorge
     internal static class MoqExtensions
     {
         [CanBeNull]
-        public static IMethod GetMockedMethodFromSetupMethod([CanBeNull] this IInvocationExpression invocationExpression)
+        public static Tuple<IMethod, ISubstitution> GetMockedMethodFromSetupMethod([CanBeNull] this IInvocationExpression invocationExpression)
         {
             if (invocationExpression == null || !IsMoqSetupMethod(invocationExpression))
                 return null;
@@ -25,7 +26,7 @@ namespace AgentZorge
             var targetMethodResolveResult = mockMethodInvocationExpression.Reference.Resolve();
             if (targetMethodResolveResult.ResolveErrorType == ResolveErrorType.OK)
             {
-                return targetMethodResolveResult.DeclaredElement as IMethod;
+                return Tuple.Create(targetMethodResolveResult.DeclaredElement as IMethod, targetMethodResolveResult.Result.Substitution);
             }
             return null;
         }

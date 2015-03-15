@@ -1,2 +1,9 @@
-﻿+ It.IsAny<ITestService>()
-x
+﻿Double.Epsilon
+Double.MaxValue
+Double.MinValue
+Double.NaN
+Double.NegativeInfinity
+Double.Parse
+Double.PositiveInfinity
+GetHashCode
++ It.IsAny<double>()

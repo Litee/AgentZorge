@@ -30,7 +30,7 @@ namespace AgentZorge
                     if (type.GetClassType().ConvertToString() == "Class:Moq.Mock`1")
                     {
                         var typeParameter = TypesUtil.GetTypeArgumentValue(type, 0);
-                        if (context.ExpectedTypesContext.ExpectedITypes.Any(x => typeParameter.IsExplicitlyConvertibleTo(x.Type, ClrPredefinedTypeConversionRule.INSTANCE)))
+                        if (context.ExpectedTypesContext.ExpectedITypes.Select(x => x.Type).Where(x => x != null).Any(x => typeParameter.IsExplicitlyConvertibleTo(x, ClrPredefinedTypeConversionRule.INSTANCE)))
                         {
                             collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(info.ShortName + ".Object"));
                         }
