@@ -20,9 +20,11 @@ AgentZorge is a plugin for Resharper simplifying work with mocking libraries (cu
 
 ![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-callback-argument.png)
 
-#### Moq: Suggest mocks where they are applicable
+#### Moq: Suggest existing mocks if they are available, otherwise suggest *new Mock().Object*
 
-![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-mocked-objects.png)
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-existing-mocks.png)
+
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-new-mock.png)
 
 #### Moq: Highlight callbacks with invalid number of arguments or incompatible argument types
 

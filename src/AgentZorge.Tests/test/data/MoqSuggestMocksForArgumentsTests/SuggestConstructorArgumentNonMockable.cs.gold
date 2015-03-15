@@ -1,0 +1,8 @@
+﻿String.Concat
+String.Copy
+String.Empty
+String.Format
+String.Intern
+String.IsInterned
+String.Join
++ ToString

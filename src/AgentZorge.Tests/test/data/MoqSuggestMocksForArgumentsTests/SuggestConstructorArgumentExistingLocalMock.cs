@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using NUnit.Framework;
 using Moq;
@@ -17,7 +16,7 @@ namespace MoqExperiments
         [Test]
         public void Test()
         {
-	     Mock<ITestService> testServiceMock;
+	     Mock<ITestService> testServiceMockLocal;
 	     new TestClass({caret}
         }
     }

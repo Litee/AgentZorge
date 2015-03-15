@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using NUnit.Framework;
 using Moq;
@@ -13,7 +12,6 @@ namespace MoqExperiments
     [TestFixture]
     public class MyTest
     {
-        Mock<ITestService> _testServiceMock;
 
         [Test]
         public void Test()
@@ -24,7 +22,6 @@ namespace MoqExperiments
 
     public interface ITestService
     {
-        void Call(string s);
     }
 
     public class TestClass
@@ -34,11 +31,6 @@ namespace MoqExperiments
         public TestClass(ITestService testService)
         {
             _testService = testService;
-        }
-
-        public void Call()
-        {
-            _testService.Call("a");
         }
     }
 }

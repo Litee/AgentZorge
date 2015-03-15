@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using NUnit.Framework;
 using Moq;
@@ -17,26 +16,21 @@ namespace MoqExperiments
         [Test]
         public void Test()
         {
-	     Mock<ITestService> testServiceMock;
-	     Mock<ITestServiceBase> testServiceBaseMock;
-	     new TestClass({caret}
+	     Mock<ITestService> testServiceMockLocal;
+	     new TestClass("", {caret}
         }
     }
 
-    public interface ITestService : ITestServiceBase
-    {
-    }
-
-    public interface ITestServiceBase
+    public interface ITestService
     {
         void Call(string s);
     }
 
     public class TestClass
     {
-        private ITestServiceBase _testService;
+        private ITestService _testService;
 
-        public TestClass(ITestServiceBase testService)
+        public TestClass(string s, ITestService testService)
         {
             _testService = testService;
         }
