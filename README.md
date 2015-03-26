@@ -14,7 +14,7 @@ AgentZorge is a plugin for Resharper simplifying work with mocking libraries (cu
 
 #### Moq: Suggest It.IsAny() when setting up mocked method, including full set of arguments for accepting any parameters. Recommendation: don't use It.IsAny() where specific value can be applied.
 
-![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-mocked-method-parameters.png)
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-isany-argument.png)
 
 #### Moq: Generate callbacks with correct parameter types/names
 
