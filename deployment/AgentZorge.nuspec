@@ -4,6 +4,8 @@
     <id>AgentZorge</id>
     <version>$version$</version>
     <releaseNotes>
+0.3.0:
+ - Re-packaging 0.3.0-beta3 as stable version
 0.3.0-beta3:
  - {New} Moq: If mock.Object is not available then "new Mock().Object" is suggested
 0.3.0-beta2:
