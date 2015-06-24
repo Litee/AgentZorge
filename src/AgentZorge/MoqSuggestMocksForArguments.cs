@@ -2,8 +2,10 @@
 using System.Linq;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
+using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
+using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
-using JetBrains.ReSharper.Feature.Services.Lookup;
+using JetBrains.ReSharper.Features.Intellisense.CodeCompletion.CSharp.Rules;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Resolve;
@@ -39,7 +41,7 @@ namespace AgentZorge
                     if (type.GetClassType().ConvertToString() == "Class:Moq.Mock`1")
                     {
                         IType typeParameter = TypesUtil.GetTypeArgumentValue(type, 0);
-                        if (typeParameter != null && context.ExpectedTypesContext.ExpectedITypes.Select(x => x.Type).Where(x => x != null).Any(x => typeParameter.IsExplicitlyConvertibleTo(x, ClrPredefinedTypeConversionRule.INSTANCE)))
+                        if (typeParameter != null && context.ExpectedTypesContext != null && context.ExpectedTypesContext.ExpectedITypes != null && context.ExpectedTypesContext.ExpectedITypes.Select(x => x.Type).Where(x => x != null).Any(x => typeParameter.IsExplicitlyConvertibleTo(x, ClrPredefinedTypeConversionRule.INSTANCE)))
                         {
                             candidateExistingElements.Add(info);
                         }
@@ -48,9 +50,14 @@ namespace AgentZorge
             });
             foreach (ISymbolInfo candidateExistingElement in candidateExistingElements)
             {
-                collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(candidateExistingElement.ShortName + ".Object"));
+                var lookupItem = new TextLookupItem(candidateExistingElement.ShortName + ".Object");
+#if RESHARPER9
+                lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#endif
+                lookupItem.PlaceTop();
+                collector.Add(lookupItem);
             }
-            if (moqIsSeen && !candidateExistingElements.Any())
+            if (moqIsSeen && !candidateExistingElements.Any() && context.ExpectedTypesContext != null)
             {
                 foreach (ExpectedTypeCompletionContextBase.ExpectedIType expectedType in context.ExpectedTypesContext.ExpectedITypes)
                 {
@@ -59,14 +66,19 @@ namespace AgentZorge
                     if (expectedType.Type.IsInterfaceType())
                     {
                         string typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
+                        var lookupItem = new TextLookupItem("new Mock<" + typeName + ">().Object");
+#if RESHARPER9
+                        lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#endif
                         if (candidateExistingElements.Any())
                         {
-                            collector.AddToBottom(context.LookupItemsFactory.CreateTextLookupItem("new Mock<" + typeName + ">().Object"));
+                            lookupItem.PlaceBottom();
                         }
                         else
                         {
-                            collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem("new Mock<" + typeName + ">().Object"));
+                            lookupItem.PlaceTop();
                         }
+                        collector.Add(lookupItem);
                     }
                 }
             }

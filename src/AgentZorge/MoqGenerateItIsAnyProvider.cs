@@ -2,6 +2,8 @@ using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
+using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
+using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Feature.Services.Lookup;
 using JetBrains.ReSharper.Psi;
@@ -62,15 +64,28 @@ namespace AgentZorge
                 methods.ForEach(method =>
                     {
                         var parameter = method.Parameters.Select(x => "It.IsAny<" + x.Type.GetPresentableName(CSharpLanguage.Instance) + ">()");
-                        collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(string.Join(", ", parameter)));
+                        var textLookupItem = new TextLookupItem(string.Join(", ", parameter));
+#if RESHARPER9
+                        textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#endif
+                        textLookupItem.PlaceTop();
+                        collector.Add(textLookupItem);
                     });
             }
-            foreach (var expectedType in context.ExpectedTypesContext.ExpectedITypes)
+            if (context.ExpectedTypesContext != null)
             {
-                if (expectedType.Type == null)
-                    continue;
-                var typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
-                collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem("It.IsAny<" + typeName + ">()"));
+                foreach (var expectedType in context.ExpectedTypesContext.ExpectedITypes)
+                {
+                    if (expectedType.Type == null)
+                        continue;
+                    var typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
+                    var textLookupItem = new TextLookupItem("It.IsAny<" + typeName + ">()");
+#if RESHARPER9
+                    textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#endif
+                    textLookupItem.PlaceTop();
+                    collector.Add(textLookupItem);
+                }
             }
         }
     }

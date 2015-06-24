@@ -2,6 +2,7 @@
 using AgentZorge.DaemonStage.Highlights;
 using JetBrains.Application.Progress;
 using JetBrains.ReSharper.Daemon;
+using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;

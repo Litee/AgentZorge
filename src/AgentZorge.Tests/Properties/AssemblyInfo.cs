@@ -1,4 +1,5 @@
-﻿using JetBrains.Application;
+﻿#if RESHARPER8
+using JetBrains.Application;
 using JetBrains.Threading;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -21,7 +22,7 @@ public class TestEnvironmentAssembly : ReSharperTestEnvironmentAssembly
         // Test assembly
         yield return Assembly.GetExecutingAssembly();
 
-#warning you need specify a type from the assembly being tested
+        // #warning you need specify a type from the assembly being tested
         yield return typeof(AgentZorge.MoqVarNameCodeCompletionProvider).Assembly;
     }
 
@@ -43,3 +44,4 @@ public class TestEnvironmentAssembly : ReSharperTestEnvironmentAssembly
         base.TearDown();
     }
 }
+#endif

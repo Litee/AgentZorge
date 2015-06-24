@@ -1,5 +1,8 @@
-﻿using JetBrains.ReSharper.Feature.Services.CodeCompletion;
+﻿using JetBrains.DocumentModel;
+using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
+using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
+using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Feature.Services.Lookup;
 using JetBrains.ReSharper.Psi;
@@ -11,6 +14,7 @@ using JetBrains.ReSharper.Psi.Naming.Settings;
 using JetBrains.ReSharper.Psi.Resx.Utils;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
+using System;
 
 namespace AgentZorge
 {
@@ -106,10 +110,46 @@ namespace AgentZorge
                     {
                         proposedName = namingManager.Suggestion.GetDerivedName(genericTypeResolveResult.DeclaredElement, elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
                     }
-                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName));
-                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName + "Mock"));
+                    var textLookupItem = new TextLookupItem(proposedName);
+#if RESHARPER9
+                    textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#endif
+                    textLookupItem.PlaceTop();
+                    collector.Add(textLookupItem);
+
+                    var textLookupItem2 = new TextLookupItem(proposedName + "Mock");
+#if RESHARPER9
+                    textLookupItem2.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#endif
+                    textLookupItem2.PlaceTop();
+                    collector.Add(textLookupItem2);
                 }
             }
         }
+
+        /*
+        private TextLookupRanges EvaluateRanges(ISpecificCodeCompletionContext context)
+        {
+            DocumentRange selectionRange = context.BasicContext.SelectedRange;
+
+            var file = context.BasicContext.File;
+
+            if (file != null)
+            {
+                var token = file.FindNodeAt(selectionRange) as ITokenNode;
+
+                if (token != null)
+                {
+                    DocumentRange tokenRange = token.GetNavigationRange();
+
+                    var insertRange = new TextRange(tokenRange.TextRange.StartOffset, selectionRange.TextRange.EndOffset);
+                    var replaceRange = new TextRange(tokenRange.TextRange.StartOffset, Math.Max(tokenRange.TextRange.EndOffset, selectionRange.TextRange.EndOffset));
+
+                    return new TextLookupRanges(insertRange, replaceRange);
+                }
+            }
+            return new TextLookupRanges(TextRange.InvalidRange, TextRange.InvalidRange);
+        }
+        */
     }
 }

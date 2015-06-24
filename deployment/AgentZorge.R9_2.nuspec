@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AgentZorge.R9_2</id>
+    <version>$version$</version>
+    <releaseNotes>
+0.4.0-beta1:
+ - Added support for Resharper 9.2
+0.3.0:
+ - Re-packaging 0.3.0-beta3 as stable version
+0.3.0-beta3:
+ - {New} Moq: If mock.Object is not available then "new Mock().Object" is suggested
+0.3.0-beta2:
+ - {Fix} Moq: Several fixes for better support of parameterized types
+0.3.0-beta1:
+ - {New} Moq: Now it is possible to provide all It.IsAny&lt;T&gt; for the method in one click
+ - {New} Moq: Now it is possible to generate callback with all parameters
+ - {New} Moq: myMock.Object are added to suggestion lists
+0.2.0:
+ - Re-packaging 0.2.0-beta4 as stable version
+0.2.0-beta4:
+ - {Fix} Moq: Callback errors highlighting works if there is a Returns call between Setup and Callback
+0.2.0-beta3:
+ - {Fix} Moq: Problem with params arguments highlighted sometimes as errors resolved
+0.2.0-beta2:
+ - {Improvement} Moq: Added expected/found information to incompatible callback highlight
+0.2.0-beta1:
+ - {New} Moq: Highlight Callback() declarations with invalid parameters
+ - {New} Moq: It.IsAny() is added into auto-complete in Setup() method
+0.1.0:
+ - Re-packaging 0.1.0-beta2 as stable version
+0.1.0-beta2:
+ - {Fix} Moq: Name auto-complete for Mock&lt;T&gt; fixed
+0.1.0-beta1:
+ - {New} Moq: Variable name auto-complete for Mock&lt;T&gt;
+    </releaseNotes>
+    <title>AgentZorge for Resharper 9.2</title>
+    <authors>Andrey Lipatkin</authors>
+    <owners>litee</owners>
+    <copyright>2015 Andrey Lipatkin</copyright>
+    <licenseUrl>https://github.com/Litee/AgentZorge/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Litee/AgentZorge</projectUrl>
+    <!--<iconUrl></iconUrl>-->
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Simplifies work with mocking libraries (e.g. Moq).</description>
+    <language>en-US</language>
+    <tags>resharper r# nunit msunit xunit moq mock mocking testing tests</tags>
+    <dependencies>
+      <dependency id="Wave" version="[3.0]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\AgentZorge\Bin\Release\AgentZorge.Resharper.9.2.dll" target="DotFiles" />
+    <file src="..\src\AgentZorge\Bin\Release\AgentZorge.Resharper.9.2.pdb" target="DotFiles" />
+  </files>
+</package>

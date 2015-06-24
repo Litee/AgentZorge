@@ -1,4 +1,9 @@
+#if RESHARPER8
 using JetBrains.ReSharper.Feature.Services.Tests.CSharp.FeatureServices.CodeCompletion;
+#endif
+#if RESHARPER9
+using JetBrains.ReSharper.FeaturesTestFramework.Completion;
+#endif
 using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
 
@@ -23,6 +28,7 @@ namespace AgentZorge.Tests
             DoTestFiles(fileName);
         }
 
+#if RESHARPER8
         protected override bool ExecuteAction
         {
             get
@@ -30,5 +36,13 @@ namespace AgentZorge.Tests
                 return false;
             }
         }
+#endif
+
+#if RESHARPER9
+        protected override CodeCompletionTestType TestType
+        {
+            get { return CodeCompletionTestType.List; }
+        }
+#endif
     }
 }

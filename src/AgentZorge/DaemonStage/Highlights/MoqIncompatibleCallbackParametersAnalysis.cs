@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Daemon;
+using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
@@ -59,7 +60,7 @@ namespace AgentZorge.DaemonStage.Highlights
             var callbackLambdaParameterDeclarations = callbackLambdaExpression.ParameterDeclarations;
             if (targetMethod.Item1.Parameters.Count != callbackLambdaParameterDeclarations.Count)
             {
-                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}.", targetMethod.Item1.Parameters.Count, callbackLambdaParameterDeclarations.Count))));
+                _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(callbackInvocationExpression, string.Format("Invalid number of parameters in Callback method. Expected: {0}. Found: {1}.", targetMethod.Item1.Parameters.Count, callbackLambdaParameterDeclarations.Count))));
             }
             else
             {
@@ -81,7 +82,7 @@ namespace AgentZorge.DaemonStage.Highlights
                 if (!typesAreCompatible)
                 {
                     var tooltip = string.Format("Incompatible parameter types in Callback method: Expected: ({0}). Found: ({1}).", string.Join(", ", targetTypeNames), string.Join(", ", usedTypeNames));
-                    _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(tooltip)));
+                    _highlights.Add(new HighlightingInfo(callbackInvocationExpression.ArgumentList.GetHighlightingRange(), new AgentZorgeHighlighting(callbackInvocationExpression, tooltip)));
                 }
             }
         }

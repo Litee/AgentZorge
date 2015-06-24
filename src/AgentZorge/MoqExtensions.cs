@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Resx.Utils;
+using JetBrains.Application.BuildScript.Application.Zones;
 
 namespace AgentZorge
 {
+    [ZoneMarker]
+    public class ZoneMarker
+    {
+    }
+
     internal static class MoqExtensions
     {
         [CanBeNull]
@@ -46,6 +53,10 @@ namespace AgentZorge
             if (invocationExpression == null || invocationExpression.Reference == null)
                 return false;
             var resolveResult = invocationExpression.Reference.Resolve();
+            if (resolveResult.ResolveErrorType == ResolveErrorType.MULTIPLE_CANDIDATES)
+            {
+                return resolveResult.Result.Candidates.Any(IsMoqSetupMethod);
+            }
             return IsMoqSetupMethod(resolveResult.DeclaredElement);
         }
 
