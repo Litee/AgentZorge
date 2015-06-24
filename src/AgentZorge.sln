@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge", "AgentZorge\AgentZorge.csproj", "{A5898DF4-DABB-48BA-B15B-E90DE9D8B231}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.8.2", "AgentZorge\AgentZorge.8.2.csproj", "{A5898DF4-DABB-48BA-B15B-E90DE9D8B231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.Tests", "AgentZorge.Tests\AgentZorge.Tests.csproj", "{461F328F-7818-4CF4-9A8E-538038BCCD6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.Tests.8.2", "AgentZorge.Tests\AgentZorge.Tests.8.2.csproj", "{461F328F-7818-4CF4-9A8E-538038BCCD6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.9.1", "AgentZorge\AgentZorge.9.1.csproj", "{86367167-2AAC-4AE3-80E3-0234F192AC8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.Tests.9.1", "AgentZorge.Tests\AgentZorge.Tests.9.1.csproj", "{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{461F328F-7818-4CF4-9A8E-538038BCCD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{461F328F-7818-4CF4-9A8E-538038BCCD6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{461F328F-7818-4CF4-9A8E-538038BCCD6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
