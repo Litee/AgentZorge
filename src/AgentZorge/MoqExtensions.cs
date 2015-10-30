@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
@@ -46,7 +47,7 @@ namespace AgentZorge
             if (invocationExpression == null || invocationExpression.Reference == null)
                 return false;
             var resolveResult = invocationExpression.Reference.Resolve();
-            return IsMoqSetupMethod(resolveResult.DeclaredElement);
+            return resolveResult.ResolveErrorType == ResolveErrorType.MULTIPLE_CANDIDATES ? resolveResult.Result.Candidates.Any(IsMoqSetupMethod) : IsMoqSetupMethod(resolveResult.DeclaredElement);
         }
 
         [CanBeNull]

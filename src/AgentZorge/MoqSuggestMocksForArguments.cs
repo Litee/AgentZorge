@@ -24,28 +24,31 @@ namespace AgentZorge
         protected override bool AddLookupItems(CSharpCodeCompletionContext context, GroupedItemsCollector collector)
         {
             bool moqIsSeen = false;
-            ISymbolTable table = GetSymbolTable(context);
             var candidateExistingElements = new List<ISymbolInfo>();
-            table.ForAllSymbolInfos(info =>
-            {
-                IDeclaredElement declaredElement = info.GetDeclaredElement();
-                if (declaredElement.ConvertToString() == "Class:Moq.Mock")
+            ISymbolTable table = GetSymbolTable(context);
+            if (table != null)
+            { 
+                table.ForAllSymbolInfos(info =>
                 {
-                    moqIsSeen = true;
-                }
-                IType type = declaredElement.Type();
-                if (type != null)
-                {
-                    if (type.GetClassType().ConvertToString() == "Class:Moq.Mock`1")
+                    IDeclaredElement declaredElement = info.GetDeclaredElement();
+                    if (declaredElement.ConvertToString() == "Class:Moq.Mock")
                     {
-                        IType typeParameter = TypesUtil.GetTypeArgumentValue(type, 0);
-                        if (typeParameter != null && context.ExpectedTypesContext.ExpectedITypes.Select(x => x.Type).Where(x => x != null).Any(x => typeParameter.IsExplicitlyConvertibleTo(x, ClrPredefinedTypeConversionRule.INSTANCE)))
+                        moqIsSeen = true;
+                    }
+                    IType type = declaredElement.Type();
+                    if (type != null)
+                    {
+                        if (type.GetClassType().ConvertToString() == "Class:Moq.Mock`1")
                         {
-                            candidateExistingElements.Add(info);
+                            IType typeParameter = TypesUtil.GetTypeArgumentValue(type, 0);
+                            if (typeParameter != null && context.ExpectedTypesContext.ExpectedITypes.Select(x => x.Type).Where(x => x != null).Any(x => typeParameter.IsExplicitlyConvertibleTo(x, ClrPredefinedTypeConversionRule.INSTANCE)))
+                            {
+                                candidateExistingElements.Add(info);
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
             foreach (ISymbolInfo candidateExistingElement in candidateExistingElements)
             {
                 collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(candidateExistingElement.ShortName + ".Object"));
