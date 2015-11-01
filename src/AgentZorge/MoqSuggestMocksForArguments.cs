@@ -34,7 +34,7 @@ namespace AgentZorge
             var candidateExistingElements = new List<ISymbolInfo>();
             ISymbolTable table = GetSymbolTable(context);
             if (table != null)
-            { 
+            {
                 table.ForAllSymbolInfos(info =>
                 {
                     IDeclaredElement declaredElement = info.GetDeclaredElement();
