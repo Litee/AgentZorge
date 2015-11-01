@@ -2,10 +2,15 @@
 using System.Linq;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
+using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
+#if RESHARPER8
+using JetBrains.ReSharper.Feature.Services.Lookup;
+#endif
+#if RESHARPER9
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
-using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Features.Intellisense.CodeCompletion.CSharp.Rules;
+#endif
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Resolve;
@@ -26,36 +31,42 @@ namespace AgentZorge
         protected override bool AddLookupItems(CSharpCodeCompletionContext context, GroupedItemsCollector collector)
         {
             bool moqIsSeen = false;
-            ISymbolTable table = GetSymbolTable(context);
             var candidateExistingElements = new List<ISymbolInfo>();
-            table.ForAllSymbolInfos(info =>
-            {
-                IDeclaredElement declaredElement = info.GetDeclaredElement();
-                if (declaredElement.ConvertToString() == "Class:Moq.Mock")
+            ISymbolTable table = GetSymbolTable(context);
+            if (table != null)
+            { 
+                table.ForAllSymbolInfos(info =>
                 {
-                    moqIsSeen = true;
-                }
-                IType type = declaredElement.Type();
-                if (type != null)
-                {
-                    if (type.GetClassType().ConvertToString() == "Class:Moq.Mock`1")
+                    IDeclaredElement declaredElement = info.GetDeclaredElement();
+                    if (declaredElement.ConvertToString() == "Class:Moq.Mock")
                     {
-                        IType typeParameter = TypesUtil.GetTypeArgumentValue(type, 0);
-                        if (typeParameter != null && context.ExpectedTypesContext != null && context.ExpectedTypesContext.ExpectedITypes != null && context.ExpectedTypesContext.ExpectedITypes.Select(x => x.Type).Where(x => x != null).Any(x => typeParameter.IsExplicitlyConvertibleTo(x, ClrPredefinedTypeConversionRule.INSTANCE)))
+                        moqIsSeen = true;
+                    }
+                    IType type = declaredElement.Type();
+                    if (type != null)
+                    {
+                        if (type.GetClassType().ConvertToString() == "Class:Moq.Mock`1")
                         {
-                            candidateExistingElements.Add(info);
+                            IType typeParameter = TypesUtil.GetTypeArgumentValue(type, 0);
+                            if (typeParameter != null && context.ExpectedTypesContext != null && context.ExpectedTypesContext.ExpectedITypes != null && context.ExpectedTypesContext.ExpectedITypes.Select(x => x.Type).Where(x => x != null).Any(x => typeParameter.IsExplicitlyConvertibleTo(x, ClrPredefinedTypeConversionRule.INSTANCE)))
+                            {
+                                candidateExistingElements.Add(info);
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
             foreach (ISymbolInfo candidateExistingElement in candidateExistingElements)
             {
-                var lookupItem = new TextLookupItem(candidateExistingElement.ShortName + ".Object");
-#if RESHARPER9
-                lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#if RESHARPER8
+                collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(candidateExistingElement.ShortName + ".Object"));
 #endif
+#if RESHARPER9
+                var lookupItem = new TextLookupItem(candidateExistingElement.ShortName + ".Object");
+                lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                 lookupItem.PlaceTop();
                 collector.Add(lookupItem);
+#endif
             }
             if (moqIsSeen && !candidateExistingElements.Any() && context.ExpectedTypesContext != null)
             {
@@ -66,10 +77,19 @@ namespace AgentZorge
                     if (expectedType.Type.IsInterfaceType())
                     {
                         string typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
-                        var lookupItem = new TextLookupItem("new Mock<" + typeName + ">().Object");
-#if RESHARPER9
-                        lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#if RESHARPER8
+                        if (candidateExistingElements.Any())
+                        {
+                            collector.AddToBottom(context.LookupItemsFactory.CreateTextLookupItem("new Mock<" + typeName + ">().Object"));
+                        }
+                        else
+                        {
+                            collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem("new Mock<" + typeName + ">().Object"));
+                        }
 #endif
+#if RESHARPER9
+                        var lookupItem = new TextLookupItem("new Mock<" + typeName + ">().Object");
+                        lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                         if (candidateExistingElements.Any())
                         {
                             lookupItem.PlaceBottom();
@@ -79,6 +99,7 @@ namespace AgentZorge
                             lookupItem.PlaceTop();
                         }
                         collector.Add(lookupItem);
+#endif
                     }
                 }
             }

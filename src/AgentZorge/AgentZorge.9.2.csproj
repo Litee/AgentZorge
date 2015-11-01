@@ -4,6 +4,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <HostFullIdentifier>ReSharperPlatformVs14Exp</HostFullIdentifier>
+    <ReSharperSdkVersion>9.2</ReSharperSdkVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>

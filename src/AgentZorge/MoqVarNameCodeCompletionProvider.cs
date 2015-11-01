@@ -1,8 +1,10 @@
 ﻿using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
+#if RESHARPER9
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
+#endif
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Feature.Services.Lookup;
 using JetBrains.ReSharper.Psi;
@@ -14,7 +16,6 @@ using JetBrains.ReSharper.Psi.Naming.Settings;
 using JetBrains.ReSharper.Psi.Resx.Utils;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
-using System;
 
 namespace AgentZorge
 {
@@ -110,19 +111,23 @@ namespace AgentZorge
                     {
                         proposedName = namingManager.Suggestion.GetDerivedName(genericTypeResolveResult.DeclaredElement, elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
                     }
-                    var textLookupItem = new TextLookupItem(proposedName);
-#if RESHARPER9
-                    textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
+#if RESHARPER8
+                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName));
+                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName + "Mock"));
 #endif
+#if RESHARPER9
+                    var textLookupItem = new TextLookupItem(proposedName);
+                    textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                     textLookupItem.PlaceTop();
                     collector.Add(textLookupItem);
-
-                    var textLookupItem2 = new TextLookupItem(proposedName + "Mock");
-#if RESHARPER9
-                    textLookupItem2.InitializeRanges(context.CompletionRanges, context.BasicContext);
 #endif
+
+#if RESHARPER9
+                    var textLookupItem2 = new TextLookupItem(proposedName + "Mock");
+                    textLookupItem2.InitializeRanges(context.CompletionRanges, context.BasicContext);
                     textLookupItem2.PlaceTop();
                     collector.Add(textLookupItem2);
+#endif
                 }
             }
         }

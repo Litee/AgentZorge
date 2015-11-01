@@ -4,6 +4,11 @@
     <id>AgentZorge</id>
     <version>$version$</version>
     <releaseNotes>
+0.4.0:
+ - Merged code base with version for R#9.2
+ - Minor stability improvements
+0.3.1:
+ - Bug fixes for improved stability
 0.3.0:
  - Re-packaging 0.3.0-beta3 as stable version
 0.3.0-beta3:
@@ -48,7 +53,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\src\AgentZorge\Bin\Release\AgentZorge.dll" target="ReSharper\v8.2\plugins" />
-    <file src="..\src\AgentZorge\Bin\Release\AgentZorge.pdb" target="ReSharper\v8.2\plugins" />
+    <file src="..\src\AgentZorge\Bin\Release\8.2\AgentZorge.Resharper.8.2.dll" target="ReSharper\v8.2\plugins" />
+    <file src="..\src\AgentZorge\Bin\Release\8.2\AgentZorge.Resharper.8.2.pdb" target="ReSharper\v8.2\plugins" />
   </files>
 </package>

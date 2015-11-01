@@ -5,14 +5,18 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Resx.Utils;
+#if RESHARPER9
 using JetBrains.Application.BuildScript.Application.Zones;
+#endif
 
 namespace AgentZorge
 {
+#if RESHARPER9
     [ZoneMarker]
     public class ZoneMarker
     {
     }
+#endif
 
     internal static class MoqExtensions
     {

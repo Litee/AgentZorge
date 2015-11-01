@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.8.2", "AgentZorg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.Tests.8.2", "AgentZorge.Tests\AgentZorge.Tests.8.2.csproj", "{461F328F-7818-4CF4-9A8E-538038BCCD6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.9.1", "AgentZorge\AgentZorge.9.1.csproj", "{86367167-2AAC-4AE3-80E3-0234F192AC8D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.Tests.9.1", "AgentZorge.Tests\AgentZorge.Tests.9.1.csproj", "{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
