@@ -4,7 +4,7 @@ AgentZorge is a plugin for Resharper simplifying work with mocking libraries (cu
 ## Compatibility
 
 * Only C# language is supported
-* Only Reshareper 8.2.x is supported at the moment. Shout if you want to see plugin for other R# versions.
+* Reshareper version 8.2, 9.2, 10.0 are supported at the moment.
 
 ## Supported features
 
