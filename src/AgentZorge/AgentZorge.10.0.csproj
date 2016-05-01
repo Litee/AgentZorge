@@ -49,16 +49,16 @@
     <Compile Include="DaemonStage\MoqDaemonStageProcess.cs" />
     <Compile Include="DaemonStage\Highlights\MoqIncompatibleCallbackParametersAnalysis.cs" />
     <Compile Include="DaemonStage\Highlights\AgentZorgeHighlighting.cs" />
-    <Compile Include="MoqExtensions.cs" />
-    <Compile Include="MoqGenerateCallbackProvider.cs" />
-    <Compile Include="MoqGenerateItIsAnyProvider.cs" />
-    <Compile Include="MoqSuggestMocksForArguments.cs" />
+    <Compile Include="Moq\MoqExtensions.cs" />
+    <Compile Include="Moq\MoqGenerateCallbackProvider.cs" />
+    <Compile Include="Moq\MoqGenerateItIsAnyProvider.cs" />
+    <Compile Include="Moq\MoqSuggestMocksForArguments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MoqVarNameCodeCompletionProvider.cs" />
+    <Compile Include="Moq\MoqVarNameCodeCompletionProvider.cs" />
     <Compile Include="ResharperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.10.0.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="antlr.runtime, Version=2.7.7.1, Culture=neutral, PublicKeyToken=0f493c87b190d7e9, processorArchitecture=MSIL">
