@@ -4,6 +4,8 @@
     <id>AgentZorge.R2016_1</id>
     <version>$version$</version>
     <releaseNotes>
+0.7.0:
+- Suggesting Arg.Any&lt;T&gt;() for NSubstitute
 0.6.0:
 - First version for Resharper 2016.1
     </releaseNotes>
@@ -15,9 +17,9 @@
     <projectUrl>https://github.com/Litee/AgentZorge</projectUrl>
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Simplifies work with mocking libraries (e.g. Moq).</description>
+    <description>Simplifies work with mocking libraries - Moq and NSubstitute.</description>
     <language>en-US</language>
-    <tags>resharper r# nunit msunit xunit moq mock mocking testing tests</tags>
+    <tags>resharper r# nunit msunit xunit moq nsubstitute mock mocking testing tests</tags>
     <dependencies>
       <dependency id="Wave" version="[5.0]" />
     </dependencies>

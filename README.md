@@ -1,10 +1,11 @@
 # AgentZorge
-AgentZorge is a plugin for Resharper simplifying work with mocking libraries (currently focused on Moq). To install the plugin use standard Resharper plugins management UI.
+
+AgentZorge is a plugin for Resharper simplifying work with mocking libraries - currently focused on Moq and NSubstitute. To install the plugin use standard Resharper plugins management UI.
 
 ## Compatibility
 
 * Only C# language is supported
-* Reshareper version 8.2, 9.2, 10.0 are supported at the moment.
+* I develop new features for the latest stable version of the R# (2016.1 at the moment) and backport them upon requests
 
 ## Supported features
 
@@ -29,3 +30,7 @@ AgentZorge is a plugin for Resharper simplifying work with mocking libraries (cu
 #### Moq: Highlight callbacks with invalid number of arguments or incompatible argument types
 
 ![](https://github.com/Litee/AgentZorge/blob/master/media/highlight-incompatible-callbacks.png)
+
+#### NSubstitute: Suggest Arg.Any() when setting up mocked methods, including full set of arguments for accepting any parameters
+
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-argany-argument.png.png)
