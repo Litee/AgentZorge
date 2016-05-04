@@ -33,4 +33,4 @@ AgentZorge is a plugin for Resharper simplifying work with mocking libraries - c
 
 #### NSubstitute: Suggest Arg.Any() when setting up mocked methods, including full set of arguments for accepting any parameters
 
-![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-argany-argument.png.png)
+![](https://github.com/Litee/AgentZorge/blob/master/media/suggest-argany-argument.png)
