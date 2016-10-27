@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.2016.2", "AgentZorge\AgentZorge.2016.2.csproj", "{86367167-2AAC-4AE3-80E3-0234F192AC8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentZorge.Tests.2016.2", "AgentZorge.Tests\AgentZorge.Tests.2016.2.csproj", "{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86367167-2AAC-4AE3-80E3-0234F192AC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D678EDC9-C7B1-440C-B2D9-0C3EC9A647A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
