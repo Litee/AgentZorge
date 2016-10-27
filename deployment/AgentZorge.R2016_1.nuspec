@@ -4,6 +4,8 @@
     <id>AgentZorge.R2016_1</id>
     <version>$version$</version>
     <releaseNotes>
+0.7.1:
+- Upgraded used Resharper SDK version, no functional changes
 0.7.0:
 - Suggesting Arg.Any&lt;T&gt;() for NSubstitute
 0.6.0:
