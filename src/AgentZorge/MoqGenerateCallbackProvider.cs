@@ -76,10 +76,6 @@ namespace AgentZorge
             {
                 return (targetMethod.Item2 == null ? x.Type.GetPresentableName(CSharpLanguage.Instance) : targetMethod.Item2.Apply(x.Type).GetPresentableName(CSharpLanguage.Instance)) + " " + x.ShortName;
             });
-#if RESHARPER8
-            var textualLookupItem = context.LookupItemsFactory.CreateTextLookupItem("(" + string.Join(", ", argsString) + ") => {}");
-            collector.AddToTop(textualLookupItem);
-#endif
 #if RESHARPER9
             var textLookupItem = new TextLookupItem("(" + string.Join(", ", argsString) + ") => {}");
             textLookupItem.PlaceTop();

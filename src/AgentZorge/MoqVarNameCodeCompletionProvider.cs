@@ -111,10 +111,6 @@ namespace AgentZorge
                     {
                         proposedName = namingManager.Suggestion.GetDerivedName(genericTypeResolveResult.DeclaredElement, elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
                     }
-#if RESHARPER8
-                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName));
-                    collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(proposedName + "Mock"));
-#endif
 #if RESHARPER9
                     var textLookupItem = new TextLookupItem(proposedName);
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);

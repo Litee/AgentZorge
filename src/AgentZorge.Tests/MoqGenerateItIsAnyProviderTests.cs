@@ -1,6 +1,3 @@
-#if RESHARPER8
-using JetBrains.ReSharper.Feature.Services.Tests.CSharp.FeatureServices.CodeCompletion;
-#endif
 #if RESHARPER9
 using JetBrains.ReSharper.FeaturesTestFramework.Completion;
 #endif
@@ -25,16 +22,6 @@ namespace AgentZorge.Tests
         {
             DoTestFiles(fileName);
         }
-
-#if RESHARPER8
-        protected override bool ExecuteAction
-        {
-            get
-            {
-                return false;
-            }
-        }
-#endif
 
 #if RESHARPER9
         protected override CodeCompletionTestType TestType

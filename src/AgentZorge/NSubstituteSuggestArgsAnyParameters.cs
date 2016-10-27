@@ -86,9 +86,6 @@ namespace AgentZorge
                 methods.ForEach(method =>
                 {
                     var parameter = method.Parameters.Select(x => "Arg.Any<" + x.Type.GetPresentableName(CSharpLanguage.Instance) + ">()");
-#if RESHARPER8
-                        collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(string.Join(", ", parameter)));
-#endif
 #if RESHARPER9
                     var textLookupItem = new TextLookupItem(string.Join(", ", parameter));
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);

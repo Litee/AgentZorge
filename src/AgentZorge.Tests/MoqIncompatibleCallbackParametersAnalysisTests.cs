@@ -1,7 +1,4 @@
-﻿#if RESHARPER8
-using JetBrains.ReSharper.Daemon.CSharp;
-#endif
-#if RESHARPER9
+﻿#if RESHARPER9
 using JetBrains.ReSharper.FeaturesTestFramework.Daemon;
 #endif
 using JetBrains.ReSharper.TestFramework;

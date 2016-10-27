@@ -3,9 +3,6 @@ using System.Linq;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
-#if RESHARPER8
-using JetBrains.ReSharper.Feature.Services.Lookup;
-#endif
 #if RESHARPER9
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
@@ -58,9 +55,6 @@ namespace AgentZorge
             }
             foreach (ISymbolInfo candidateExistingElement in candidateExistingElements)
             {
-#if RESHARPER8
-                collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(candidateExistingElement.ShortName + ".Object"));
-#endif
 #if RESHARPER9
                 var lookupItem = new TextLookupItem(candidateExistingElement.ShortName + ".Object");
                 lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
@@ -77,16 +71,6 @@ namespace AgentZorge
                     if (expectedType.Type.IsInterfaceType())
                     {
                         string typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
-#if RESHARPER8
-                        if (candidateExistingElements.Any())
-                        {
-                            collector.AddToBottom(context.LookupItemsFactory.CreateTextLookupItem("new Mock<" + typeName + ">().Object"));
-                        }
-                        else
-                        {
-                            collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem("new Mock<" + typeName + ">().Object"));
-                        }
-#endif
 #if RESHARPER9
                         var lookupItem = new TextLookupItem("new Mock<" + typeName + ">().Object");
                         lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);

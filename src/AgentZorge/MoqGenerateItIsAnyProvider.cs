@@ -66,9 +66,6 @@ namespace AgentZorge
                 methods.ForEach(method =>
                     {
                         var parameter = method.Parameters.Select(x => "It.IsAny<" + x.Type.GetPresentableName(CSharpLanguage.Instance) + ">()");
-#if RESHARPER8
-                        collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem(string.Join(", ", parameter)));
-#endif
 #if RESHARPER9
                         var textLookupItem = new TextLookupItem(string.Join(", ", parameter));
                         textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
@@ -84,9 +81,6 @@ namespace AgentZorge
                     if (expectedType.Type == null)
                         continue;
                     var typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
-#if RESHARPER8
-	                collector.AddToTop(context.LookupItemsFactory.CreateTextLookupItem("It.IsAny<" + typeName + ">()"));
-#endif
 #if RESHARPER9
                     var textLookupItem = new TextLookupItem("It.IsAny<" + typeName + ">()");
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
