@@ -2,11 +2,9 @@
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
-#if RESHARPER9
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
 using JetBrains.ReSharper.Features.Intellisense.CodeCompletion.CSharp.Rules;
-#endif
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
@@ -52,12 +50,10 @@ namespace AgentZorge
                     if (expectedType.Type == null)
                         continue;
                     var typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
-#if RESHARPER9
                     var textLookupItem = new TextLookupItem("Arg.Any<" + typeName + ">()");
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                     textLookupItem.PlaceTop();
                     collector.Add(textLookupItem);
-#endif
                 }
             }
             if (context.TerminatedContext == null)
@@ -86,12 +82,10 @@ namespace AgentZorge
                 methods.ForEach(method =>
                 {
                     var parameter = method.Parameters.Select(x => "Arg.Any<" + x.Type.GetPresentableName(CSharpLanguage.Instance) + ">()");
-#if RESHARPER9
                     var textLookupItem = new TextLookupItem(string.Join(", ", parameter));
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                     textLookupItem.PlaceTop();
                     collector.Add(textLookupItem);
-#endif
                 });
             }
             return true;

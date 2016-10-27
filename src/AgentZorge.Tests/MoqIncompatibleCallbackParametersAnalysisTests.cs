@@ -1,6 +1,4 @@
-﻿#if RESHARPER9
-using JetBrains.ReSharper.FeaturesTestFramework.Daemon;
-#endif
+﻿using JetBrains.ReSharper.FeaturesTestFramework.Daemon;
 using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
 

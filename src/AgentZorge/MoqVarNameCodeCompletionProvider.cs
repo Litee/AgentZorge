@@ -1,12 +1,8 @@
-﻿using JetBrains.DocumentModel;
-using JetBrains.ReSharper.Feature.Services.CodeCompletion;
+﻿using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
-#if RESHARPER9
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
-#endif
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
-using JetBrains.ReSharper.Feature.Services.Lookup;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
@@ -111,19 +107,15 @@ namespace AgentZorge
                     {
                         proposedName = namingManager.Suggestion.GetDerivedName(genericTypeResolveResult.DeclaredElement, elementKinds, localSelfScoped, CSharpLanguage.Instance, suggestionOptions, referenceName.GetSourceFile());
                     }
-#if RESHARPER9
                     var textLookupItem = new TextLookupItem(proposedName);
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                     textLookupItem.PlaceTop();
                     collector.Add(textLookupItem);
-#endif
 
-#if RESHARPER9
                     var textLookupItem2 = new TextLookupItem(proposedName + "Mock");
                     textLookupItem2.InitializeRanges(context.CompletionRanges, context.BasicContext);
                     textLookupItem2.PlaceTop();
                     collector.Add(textLookupItem2);
-#endif
                 }
             }
         }

@@ -3,11 +3,9 @@ using System.Linq;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure;
 using JetBrains.ReSharper.Feature.Services.CSharp.CodeCompletion.Infrastructure;
-#if RESHARPER9
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems;
 using JetBrains.ReSharper.Feature.Services.CodeCompletion.Infrastructure.LookupItems.Impl;
 using JetBrains.ReSharper.Features.Intellisense.CodeCompletion.CSharp.Rules;
-#endif
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Resolve;
@@ -55,12 +53,10 @@ namespace AgentZorge
             }
             foreach (ISymbolInfo candidateExistingElement in candidateExistingElements)
             {
-#if RESHARPER9
                 var lookupItem = new TextLookupItem(candidateExistingElement.ShortName + ".Object");
                 lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                 lookupItem.PlaceTop();
                 collector.Add(lookupItem);
-#endif
             }
             if (moqIsSeen && !candidateExistingElements.Any() && context.ExpectedTypesContext != null)
             {
@@ -71,7 +67,6 @@ namespace AgentZorge
                     if (expectedType.Type.IsInterfaceType())
                     {
                         string typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
-#if RESHARPER9
                         var lookupItem = new TextLookupItem("new Mock<" + typeName + ">().Object");
                         lookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                         if (candidateExistingElements.Any())
@@ -83,7 +78,6 @@ namespace AgentZorge
                             lookupItem.PlaceTop();
                         }
                         collector.Add(lookupItem);
-#endif
                     }
                 }
             }
