@@ -21,13 +21,15 @@ namespace AgentZorge
             return codeCompletionType == CodeCompletionType.SmartCompletion;
         }
 
-        protected override bool AddLookupItems(CSharpCodeCompletionContext context, GroupedItemsCollector collector)
+
+
+        protected override bool AddLookupItems(CSharpCodeCompletionContext context, IItemsCollector collector)
         {
             AddLookupItemsNew(context, collector);
             return true;
         }
 
-        private void AddLookupItemsNew([NotNull] CSharpCodeCompletionContext context, [NotNull] GroupedItemsCollector collector)
+        private void AddLookupItemsNew([NotNull] CSharpCodeCompletionContext context, [NotNull] IItemsCollector collector)
         {
             if (context.TerminatedContext == null)
                 return;

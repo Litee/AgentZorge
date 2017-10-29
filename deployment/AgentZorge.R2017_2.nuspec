@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AgentZorge.R2017_2</id>
+    <version>$version$</version>
+    <releaseNotes>
+0.8.0:
+- First release for Resharper 2017.2
+    </releaseNotes>
+    <title>AgentZorge for Resharper 2017.2</title>
+    <authors>Andrey Lipatkin</authors>
+    <owners>litee</owners>
+    <copyright>2015-2017 Andrey Lipatkin</copyright>
+    <licenseUrl>https://github.com/Litee/AgentZorge/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Litee/AgentZorge</projectUrl>
+    <!--<iconUrl></iconUrl>-->
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Simplifies work with mocking libraries - Moq and NSubstitute.</description>
+    <language>en-US</language>
+    <tags>resharper r# nunit msunit xunit moq nsubstitute mock mocking testing tests</tags>
+    <dependencies>
+      <dependency id="Wave" version="[9.0]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\AgentZorge\Bin\Release\2017.2\AgentZorge.Resharper.2017.2.dll" target="DotFiles" />
+    <file src="..\src\AgentZorge\Bin\Release\2017.2\AgentZorge.Resharper.2017.2.pdb" target="DotFiles" />
+  </files>
+</package>

@@ -24,7 +24,7 @@ namespace AgentZorge
             return codeCompletionType == CodeCompletionType.SmartCompletion;
         }
 
-        protected override bool AddLookupItems(CSharpCodeCompletionContext context, GroupedItemsCollector collector)
+        protected override bool AddLookupItems(CSharpCodeCompletionContext context, IItemsCollector collector)
         {
             bool nSubstituteIsSeen = false;
             ISymbolTable table = GetSymbolTable(context);

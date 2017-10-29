@@ -24,13 +24,13 @@ namespace AgentZorge
             return codeCompletionType == CodeCompletionType.BasicCompletion || codeCompletionType == CodeCompletionType.SmartCompletion;
         }
 
-        protected override bool AddLookupItems(CSharpCodeCompletionContext context, GroupedItemsCollector collector)
+        protected override bool AddLookupItems(CSharpCodeCompletionContext context, IItemsCollector collector)
         {
             AddLookupItemsNew(context, collector);
             return true;
         }
 
-        private void AddLookupItemsNew(CSharpCodeCompletionContext context, GroupedItemsCollector collector)
+        private void AddLookupItemsNew(CSharpCodeCompletionContext context, IItemsCollector collector)
         {
             if (context.TerminatedContext == null)
             {
@@ -79,7 +79,7 @@ namespace AgentZorge
             }
         }
 
-        private static void ProcessReferenceName(CSharpCodeCompletionContext context, GroupedItemsCollector collector, IReferenceName referenceName, NamedElementKinds elementKinds, ScopeKind localSelfScoped)
+        private static void ProcessReferenceName(CSharpCodeCompletionContext context, IItemsCollector collector, IReferenceName referenceName, NamedElementKinds elementKinds, ScopeKind localSelfScoped)
         {
             if (referenceName == null)
                 return;
