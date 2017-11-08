@@ -4,6 +4,9 @@
     <id>AgentZorge.R2017_2</id>
     <version>$version$</version>
     <releaseNotes>
+0.8.1:
+- Moq: Added parameters verification for Returns() methods
+- Moq: Now parameter-less lambdas are allowed in Callback() and Returns() methods
 0.8.0:
 - First release for Resharper 2017.2
     </releaseNotes>

@@ -13,15 +13,13 @@ using JetBrains.ReSharper.Psi.Tree;
 namespace AgentZorge
 {
     [Language(typeof (CSharpLanguage))]
-    public class MoqGenerateItIsAnyProvider : ItemsProviderOfSpecificContext<CSharpCodeCompletionContext>
+    public sealed class MoqGenerateItIsAnyProvider : ItemsProviderOfSpecificContext<CSharpCodeCompletionContext>
     {
         protected override bool IsAvailable(CSharpCodeCompletionContext context)
         {
             CodeCompletionType codeCompletionType = context.BasicContext.CodeCompletionType;
             return codeCompletionType == CodeCompletionType.SmartCompletion;
         }
-
-
 
         protected override bool AddLookupItems(CSharpCodeCompletionContext context, IItemsCollector collector)
         {
@@ -68,6 +66,7 @@ namespace AgentZorge
                         var textLookupItem = new TextLookupItem(string.Join(", ", parameter));
                         textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                         textLookupItem.PlaceTop();
+                        textLookupItem.Placement.OrderString = "~0";
                         collector.Add(textLookupItem);
                     });
             }
@@ -80,10 +79,17 @@ namespace AgentZorge
                     var typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
                     var textLookupItem = new TextLookupItem("It.IsAny<" + typeName + ">()");
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
-                    textLookupItem.PlaceTop();
+                    textLookupItem.Placement.OrderString = "~0";
+                    textLookupItem.Placement.Location = PlacementLocation.Top;
+                    textLookupItem.Placement.Rank = 0;
                     collector.Add(textLookupItem);
                 }
             }
+        }
+
+        protected override void TransformItems([NotNull] CSharpCodeCompletionContext context, [NotNull] IItemsCollector collector)
+        {
+            var a = collector.Items;
         }
     }
 }

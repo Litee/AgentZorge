@@ -51,7 +51,7 @@ namespace AgentZorge
             {
                 setupInvocationExpression = setupOrReturnInvocationExpression;
             }
-            else if (setupOrReturnInvocationExpression.IsMoqReturnsMethod())
+            else if (setupOrReturnInvocationExpression.IsMoqGenericReturnsMethod())
             {
                 var invokedExpression2 = setupOrReturnInvocationExpression.InvokedExpression as IReferenceExpression;
                 if (invokedExpression2 == null)

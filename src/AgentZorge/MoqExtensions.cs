@@ -63,7 +63,6 @@ namespace AgentZorge
             var resolveResult = invocationExpression.Reference.Resolve();
             return IsMoqSetupMethod(resolveResult.DeclaredElement) ? resolveResult.DeclaredElement as IMethod : null;
         }
-
         public static bool IsMoqCallbackMethod([CanBeNull] this IInvocationExpression invocationExpression)
         {
             if (invocationExpression == null || invocationExpression.Reference == null)
@@ -77,7 +76,7 @@ namespace AgentZorge
             return containingClassAsString == "Interface:Moq.Language.ICallback" || containingClassAsString == "Interface:Moq.Language.ICallback`2";
         }
 
-        public static bool IsMoqReturnsMethod([CanBeNull] this IInvocationExpression invocationExpression)
+        public static bool IsMoqGenericReturnsMethod([CanBeNull] this IInvocationExpression invocationExpression)
         {
             if (invocationExpression == null || invocationExpression.Reference == null)
                 return false;
