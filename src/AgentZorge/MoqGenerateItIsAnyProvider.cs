@@ -18,7 +18,7 @@ namespace AgentZorge
         protected override bool IsAvailable(CSharpCodeCompletionContext context)
         {
             CodeCompletionType codeCompletionType = context.BasicContext.CodeCompletionType;
-            return codeCompletionType == CodeCompletionType.SmartCompletion;
+            return codeCompletionType == CodeCompletionType.BasicCompletion || codeCompletionType == CodeCompletionType.SmartCompletion;
         }
 
         protected override bool AddLookupItems(CSharpCodeCompletionContext context, IItemsCollector collector)
@@ -66,7 +66,6 @@ namespace AgentZorge
                         var textLookupItem = new TextLookupItem(string.Join(", ", parameter));
                         textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
                         textLookupItem.PlaceTop();
-                        textLookupItem.Placement.OrderString = "~0";
                         collector.Add(textLookupItem);
                     });
             }
@@ -79,9 +78,7 @@ namespace AgentZorge
                     var typeName = expectedType.Type.GetPresentableName(CSharpLanguage.Instance);
                     var textLookupItem = new TextLookupItem("It.IsAny<" + typeName + ">()");
                     textLookupItem.InitializeRanges(context.CompletionRanges, context.BasicContext);
-                    textLookupItem.Placement.OrderString = "~0";
-                    textLookupItem.Placement.Location = PlacementLocation.Top;
-                    textLookupItem.Placement.Rank = 0;
+                    textLookupItem.PlaceTop();
                     collector.Add(textLookupItem);
                 }
             }

@@ -21,7 +21,7 @@ namespace AgentZorge
         protected override bool IsAvailable(CSharpCodeCompletionContext context)
         {
             CodeCompletionType codeCompletionType = context.BasicContext.CodeCompletionType;
-            return codeCompletionType == CodeCompletionType.SmartCompletion;
+            return codeCompletionType == CodeCompletionType.BasicCompletion || codeCompletionType == CodeCompletionType.SmartCompletion;
         }
 
         protected override bool AddLookupItems(CSharpCodeCompletionContext context, IItemsCollector collector)

@@ -4,6 +4,8 @@
     <id>AgentZorge.R2017_2</id>
     <version>$version$</version>
     <releaseNotes>
+0.8.2:
+- Moq, NSubstitute: Added hints into basic auto-complete in addition to smart auto-complete
 0.8.1:
 - Moq: Added parameters verification for Returns() methods
 - Moq: Now parameter-less lambdas are allowed in Callback() and Returns() methods
