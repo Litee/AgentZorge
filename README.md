@@ -2,6 +2,8 @@
 
 AgentZorge is a plugin for Resharper simplifying work with mocking libraries - currently focused on Moq and NSubstitute. To install the plugin use standard Resharper plugins management UI.
 
+UPDATE: This project is being replaced by [Agent.Zorge.Moq](https://github.com/Litee/Agent.Zorge.Moq) pure Roslyn extension which works without Resharper. Note that Agent.Zorge.Moq works only with VS 2017 because it relies on latest Roslyn completion APIs not available in VS 2015.
+
 ## Compatibility
 
 * Only C# language is supported
